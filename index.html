@@ -2,12 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Bloom | A Democratic Republic on CivMC</title>
-  <meta name="description" content="Welcome to Bloom, a democratic republic on CivMC. Join our growing nation with elected Congress, rich culture, and vibrant communities.">
-  <meta name="keywords" content="Bloom, CivMC, Minecraft nation, democratic republic, Bloom Congress">
-  <link rel="canonical" href="https://your-github-username.github.io/bloom/">
-  <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloom | A Democratic Republic</title>
+  <meta name="description" content="Bloom is a democratic republic on CivMC. Join our growing nation with elected Congress, vibrant cities, and strong community.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
   
   <style>
     * {
@@ -16,35 +14,29 @@
       box-sizing: border-box;
     }
 
-    /* ===== COLOR VARIABLES (Naboo + Flag: Purple/White/Gray) ===== */
     :root {
-      --bloom-purple-dark: #3a1f5e;
-      --bloom-purple: #5a3a7a;
-      --bloom-purple-light: #8a6aae;
-      --bloom-cream: #f5f0e8;
-      --bloom-white: #ffffff;
-      --bloom-gray-light: #e8e6e8;
-      --bloom-gray: #9a8e9a;
-      --bloom-gold: #d4af37;
-      --bloom-green-sage: #8ba888;
-      --bloom-green-deep: #4a6b48;
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
-      --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.12);
-      --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.15);
+      --bloom-purple: #3d2b5a;
+      --bloom-purple-dark: #231b36;
+      --bloom-purple-light: #6b4c8a;
+      --bloom-gold: #c9a03d;
+      --bloom-white: #faf9fc;
+      --bloom-gray: #eae6f0;
+      --bloom-dark: #1a1427;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+      --border-radius: 0px;
+      --border-radius-card: 0px;
     }
 
     body {
-      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
-      background-color: var(--bloom-cream);
-      color: #2c242c;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+      background-color: var(--bloom-dark);
+      color: #1f1b2c;
       line-height: 1.5;
-      min-height: 100vh;
-      position: relative;
     }
 
-    /* Background image with overlay */
-    body::before {
-      content: '';
+    /* Background image layer */
+    .bg-layer {
       position: fixed;
       top: 0;
       left: 0;
@@ -54,104 +46,92 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      background-attachment: fixed;
-      opacity: 0.35;
-      z-index: -2;
+      opacity: 0.25;
+      z-index: -1;
     }
 
-    body::after {
+    /* Dark overlay for better text contrast */
+    .bg-layer::after {
       content: '';
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, rgba(90, 58, 122, 0.08) 0%, rgba(139, 168, 136, 0.05) 100%);
-      z-index: -1;
+      background: linear-gradient(135deg, rgba(26, 20, 39, 0.7), rgba(26, 20, 39, 0.5));
     }
 
-    /* Container */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+    }
+
     .container {
       max-width: 1280px;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 2rem;
     }
 
-    /* ===== HEADER ===== */
-    .bloom-header {
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(90, 58, 122, 0.15);
+    /* Header - geometric, sharp */
+    .header {
+      background: rgba(26, 20, 39, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid var(--bloom-gold);
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: var(--shadow-sm);
     }
 
-    .header-wrapper {
+    .header-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-      padding: 0.75rem 0;
+      padding: 1rem 0;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 1.6rem;
+      gap: 0.75rem;
+      font-size: 1.5rem;
       font-weight: 700;
-      background: linear-gradient(135deg, var(--bloom-purple-dark), var(--bloom-purple));
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
+      color: var(--bloom-white);
+      letter-spacing: -0.5px;
     }
 
     .logo-icon {
-      font-size: 2rem;
+      font-size: 1.8rem;
     }
 
-    /* Discord pill button */
-    .discord-pill {
-      background: linear-gradient(135deg, #5865F2, #4752c4);
+    /* Discord button - sharp rectangle */
+    .discord-link {
+      background: #5865F2;
       color: white;
-      padding: 0.5rem 1.2rem;
-      border-radius: 100px;
+      padding: 0.5rem 1.5rem;
       text-decoration: none;
       font-weight: 500;
       font-size: 0.9rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: var(--shadow-sm);
+      letter-spacing: 0.3px;
+      transition: all 0.2s;
+      border: none;
     }
 
-    .discord-pill:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
+    .discord-link:hover {
+      background: #4752c4;
+      transform: translateY(-1px);
     }
 
-    /* ===== NAVIGATION (Desktop) ===== */
-    .bloom-navbar {
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(90, 58, 122, 0.1);
-    }
-
-    .nav-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
+    /* Desktop Navigation - sharp, minimal */
+    .nav {
+      background: rgba(26, 20, 39, 0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(201, 160, 61, 0.2);
     }
 
     .nav-list {
       display: flex;
       list-style: none;
-      gap: 0.25rem;
-      flex-wrap: wrap;
+      gap: 0;
     }
 
     .nav-item {
@@ -160,58 +140,57 @@
 
     .nav-link {
       display: block;
-      padding: 0.9rem 1.2rem;
+      padding: 1rem 1.5rem;
       text-decoration: none;
       font-weight: 500;
-      color: var(--bloom-purple-dark);
-      transition: color 0.2s, background 0.2s;
-      border-radius: 8px;
+      color: var(--bloom-white);
+      letter-spacing: 0.3px;
+      transition: all 0.2s;
+      border-bottom: 2px solid transparent;
     }
 
     .nav-link:hover {
+      border-bottom-color: var(--bloom-gold);
       color: var(--bloom-gold);
-      background: rgba(90, 58, 122, 0.06);
     }
 
-    /* Dropdown */
-    .dropdown-menu {
+    /* Dropdown - sharp edges */
+    .dropdown {
       position: absolute;
       top: 100%;
       left: 0;
-      background: white;
-      min-width: 200px;
-      border-radius: 12px;
-      box-shadow: var(--shadow-lg);
-      padding: 0.5rem 0;
+      background: rgba(26, 20, 39, 0.95);
+      backdrop-filter: blur(12px);
+      min-width: 220px;
       opacity: 0;
       visibility: hidden;
       transform: translateY(-8px);
       transition: all 0.2s;
-      z-index: 50;
-      border: 1px solid rgba(90, 58, 122, 0.1);
+      border-left: 2px solid var(--bloom-gold);
     }
 
-    .nav-item:hover .dropdown-menu {
+    .nav-item:hover .dropdown {
       opacity: 1;
       visibility: visible;
       transform: translateY(0);
     }
 
-    .dropdown-menu a {
+    .dropdown a {
       display: block;
-      padding: 0.6rem 1.2rem;
+      padding: 0.75rem 1.25rem;
       text-decoration: none;
-      color: var(--bloom-purple);
+      color: var(--bloom-white);
       font-size: 0.9rem;
+      border-bottom: 1px solid rgba(201, 160, 61, 0.1);
     }
 
-    .dropdown-menu a:hover {
-      background: var(--bloom-gray-light);
-      color: var(--bloom-purple-dark);
+    .dropdown a:hover {
+      background: rgba(201, 160, 61, 0.15);
+      color: var(--bloom-gold);
     }
 
-    /* Mobile menu toggle (hidden on desktop) */
-    .menu-toggle {
+    /* Mobile menu (hidden on desktop) */
+    .mobile-toggle {
       display: none;
       background: none;
       border: none;
@@ -219,29 +198,258 @@
       padding: 0.5rem;
     }
 
-    .menu-toggle span {
+    .mobile-toggle span {
       display: block;
-      width: 25px;
-      height: 3px;
-      background: var(--bloom-purple-dark);
+      width: 24px;
+      height: 2px;
+      background: var(--bloom-white);
       margin: 5px 0;
-      border-radius: 3px;
-      transition: 0.2s;
     }
 
-    /* Slide-out mobile menu */
+    /* Hero - bold, structured */
+    .hero {
+      padding: 5rem 0 6rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--bloom-white);
+      margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.75);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--bloom-gold);
+      color: var(--bloom-dark);
+    }
+
+    .btn-primary:hover {
+      background: #b58a2e;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1.5px solid var(--bloom-white);
+      color: var(--bloom-white);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* News ticker - geometric */
+    .news-section {
+      background: var(--bloom-white);
+      margin: 2rem 0;
+      box-shadow: var(--shadow-md);
+      border-left: 4px solid var(--bloom-gold);
+    }
+
+    .news-header {
+      padding: 1rem 1.5rem;
+      background: var(--bloom-gray);
+      border-bottom: 1px solid #ddd8e8;
+    }
+
+    .news-header h3 {
+      color: var(--bloom-purple-dark);
+      font-weight: 600;
+    }
+
+    .news-list {
+      padding: 0.5rem 1.5rem 1rem;
+    }
+
+    .news-item {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .news-item a {
+      color: var(--bloom-purple);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .news-item a:hover {
+      color: var(--bloom-gold);
+    }
+
+    .news-date {
+      color: #999;
+      font-size: 0.85rem;
+    }
+
+    /* Section titles - sharp, minimal */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--bloom-white);
+      text-align: center;
+      margin: 3rem 0 0.5rem;
+      letter-spacing: -0.3px;
+    }
+
+    .section-intro {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 650px;
+      margin: 0 auto 2.5rem;
+    }
+
+    /* Card grid - sharp rectangles, no rounding */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .card {
+      background: rgba(26, 20, 39, 0.85);
+      backdrop-filter: blur(4px);
+      padding: 2rem;
+      transition: all 0.25s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      border: 1px solid rgba(201, 160, 61, 0.2);
+    }
+
+    .card:hover {
+      background: rgba(26, 20, 39, 0.95);
+      transform: translateY(-4px);
+      border-color: var(--bloom-gold);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.4rem;
+      color: var(--bloom-white);
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .card p {
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .card-arrow {
+      color: var(--bloom-gold);
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* CTA section - geometric, bold */
+    .cta {
+      background: var(--bloom-purple);
+      margin: 3rem 0;
+      padding: 3rem 2rem;
+      text-align: center;
+      border-left: 4px solid var(--bloom-gold);
+    }
+
+    .cta h2 {
+      font-size: 2rem;
+      color: var(--bloom-white);
+      margin-bottom: 1rem;
+    }
+
+    .cta p {
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 500px;
+      margin: 0 auto 1.5rem;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: rgba(255, 255, 255, 0.5);
+      border-top: 1px solid rgba(201, 160, 61, 0.2);
+      font-size: 0.85rem;
+      margin-top: 2rem;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+      .nav-list {
+        display: none;
+      }
+      .mobile-toggle {
+        display: block;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .container {
+        padding: 0 1rem;
+      }
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+      .news-item {
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .mobile-only {
+        display: none;
+      }
+    }
+
+    /* Mobile slide menu */
     .mobile-menu {
       position: fixed;
       top: 0;
       right: -100%;
       width: 280px;
       height: 100%;
-      background: white;
-      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+      background: var(--bloom-dark);
       z-index: 200;
       transition: right 0.3s ease;
-      padding: 2rem 1rem;
-      overflow-y: auto;
+      padding: 2rem 1.5rem;
     }
 
     .mobile-menu.open {
@@ -254,7 +462,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.6);
       z-index: 150;
       display: none;
     }
@@ -272,18 +480,16 @@
     }
 
     .mobile-nav-link {
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: var(--bloom-purple-dark);
+      color: var(--bloom-white);
       text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
       display: block;
       padding: 0.5rem 0;
     }
 
     .mobile-submenu {
       padding-left: 1rem;
-      list-style: none;
-      margin-top: 0.5rem;
       display: none;
     }
 
@@ -293,450 +499,191 @@
 
     .mobile-submenu a {
       display: block;
-      padding: 0.4rem 0;
-      color: var(--bloom-purple);
-      text-decoration: none;
-      font-size: 0.9rem;
-    }
-
-    /* ===== HERO SECTION ===== */
-    .hero {
-      text-align: center;
-      padding: 4rem 1rem 5rem;
-      background: linear-gradient(135deg, rgba(58, 31, 94, 0.6), rgba(90, 58, 122, 0.5));
-      border-radius: 0 0 2rem 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .hero h1 {
-      font-size: 3.5rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: white;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      margin-bottom: 1rem;
-    }
-
-    .hero-subtitle {
-      font-size: 1.3rem;
-      color: rgba(255, 255, 255, 0.9);
-      max-width: 600px;
-      margin: 0 auto 2rem;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 0.8rem 2rem;
-      border-radius: 60px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-
-    .btn-primary {
-      background: var(--bloom-purple);
-      color: white;
-      border: 2px solid var(--bloom-gold);
-    }
-
-    .btn-primary:hover {
-      background: var(--bloom-purple-dark);
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(4px);
-      color: white;
-      border: 2px solid rgba(255, 255, 255, 0.5);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.35);
-      transform: translateY(-3px);
-    }
-
-    /* ===== NEWS TICKER ===== */
-    .news-ticker {
-      background: white;
-      border-radius: 1rem;
-      padding: 1.2rem 1.5rem;
-      margin: 2rem 0;
-      box-shadow: var(--shadow-sm);
-      border-left: 5px solid var(--bloom-gold);
-    }
-
-    .news-ticker h3 {
-      color: var(--bloom-purple-dark);
-      margin-bottom: 0.75rem;
-      font-size: 1.3rem;
-    }
-
-    .news-item {
       padding: 0.5rem 0;
-      border-bottom: 1px solid var(--bloom-gray-light);
-    }
-
-    .news-item:last-child {
-      border-bottom: none;
-    }
-
-    .news-item a {
-      color: var(--bloom-purple);
+      color: rgba(255, 255, 255, 0.7);
       text-decoration: none;
-      font-weight: 500;
-    }
-
-    .news-item a:hover {
-      color: var(--bloom-gold);
-    }
-
-    .news-date {
-      color: var(--bloom-gray);
-      font-size: 0.85rem;
-      margin-left: 0.75rem;
-    }
-
-    /* ===== FEATURE CARDS ===== */
-    .section-title {
-      text-align: center;
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--bloom-purple-dark);
-      margin: 2rem 0 0.5rem;
-    }
-
-    .section-intro {
-      text-align: center;
-      color: var(--bloom-purple);
-      max-width: 700px;
-      margin: 0 auto 2rem;
-    }
-
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin: 2rem 0;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(4px);
-      border-radius: 1.2rem;
-      padding: 1.8rem;
-      transition: all 0.25s;
-      border: 1px solid rgba(90, 58, 122, 0.15);
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: var(--shadow-lg);
-      background: white;
-      border-color: var(--bloom-gold);
-    }
-
-    .card-icon {
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
-    }
-
-    .card h3 {
-      font-size: 1.5rem;
-      color: var(--bloom-purple-dark);
-      margin-bottom: 0.75rem;
-    }
-
-    .card p {
-      color: #5a4e5a;
-      margin-bottom: 1rem;
-    }
-
-    .card-link {
-      color: var(--bloom-gold);
-      font-weight: 600;
       font-size: 0.9rem;
-    }
-
-    /* ===== CTA SECTION ===== */
-    .cta-section {
-      background: linear-gradient(135deg, var(--bloom-purple), var(--bloom-purple-light));
-      border-radius: 2rem;
-      padding: 3rem 2rem;
-      text-align: center;
-      margin: 3rem 0;
-      color: white;
-    }
-
-    .cta-section h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    .cta-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-    }
-
-    .btn-cta {
-      background: white;
-      color: var(--bloom-purple-dark);
-      border: none;
-    }
-
-    .btn-cta:hover {
-      background: var(--bloom-cream);
-    }
-
-    .btn-cta-outline {
-      background: transparent;
-      border: 2px solid white;
-      color: white;
-    }
-
-    .btn-cta-outline:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    /* ===== FOOTER ===== */
-    .footer {
-      text-align: center;
-      padding: 2rem;
-      color: var(--bloom-gray);
-      border-top: 1px solid rgba(90, 58, 122, 0.15);
-      margin-top: 2rem;
-      font-size: 0.85rem;
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      .nav-list {
-        display: none;
-      }
-      .menu-toggle {
-        display: block;
-      }
-      .header-wrapper {
-        justify-content: space-between;
-      }
-      .hero h1 {
-        font-size: 2.4rem;
-      }
-      .hero-subtitle {
-        font-size: 1.1rem;
-      }
-      .container {
-        padding: 0 1rem;
-      }
-    }
-
-    @media (min-width: 769px) {
-      .mobile-menu, .mobile-overlay {
-        display: none !important;
-      }
     }
   </style>
 </head>
 <body>
 
-<header class="bloom-header">
-  <div class="container header-wrapper">
-    <div class="logo">
-      <span class="logo-icon">🌸</span>
-      <span>Bloom</span>
-    </div>
-    <a href="https://discord.gg/aV6VM32EZR" target="_blank" class="discord-pill">💬 Join Discord →</a>
-    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
+<div class="bg-layer"></div>
 
-<!-- Desktop Navbar -->
-<nav class="bloom-navbar">
-  <div class="nav-container">
-    <ul class="nav-list">
-      <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
-      <li class="nav-item">
-        <span class="nav-link">Government ▾</span>
-        <div class="dropdown-menu">
-          <a href="#">Congress</a>
-          <a href="#">President & Speaker</a>
-          <a href="#">Elections</a>
-        </div>
+<div class="wrapper">
+  <header class="header">
+    <div class="container header-inner">
+      <div class="logo">
+        <span class="logo-icon">🌸</span>
+        <span>BLOOM</span>
+      </div>
+      <a href="https://discord.gg/aV6VM32EZR" target="_blank" class="discord-link">JOIN DISCORD →</a>
+      <button class="mobile-toggle" id="mobileToggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <div class="container">
+      <ul class="nav-list">
+        <li class="nav-item"><a href="#" class="nav-link">HOME</a></li>
+        <li class="nav-item">
+          <span class="nav-link">GOVERNMENT ▾</span>
+          <div class="dropdown">
+            <a href="#">Congress</a>
+            <a href="#">President & Speaker</a>
+            <a href="#">Elections</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <span class="nav-link">EXPLORE ▾</span>
+          <div class="dropdown">
+            <a href="#">Cities & Districts</a>
+            <a href="#">History</a>
+            <a href="https://civmc-map.github.io/" target="_blank">CivMC Map →</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <span class="nav-link">RESOURCES ▾</span>
+          <div class="dropdown">
+            <a href="#">New Player Guide</a>
+            <a href="#">Constitution & Laws</a>
+            <a href="#">Shop Directory</a>
+          </div>
+        </li>
+        <li class="nav-item"><a href="#" class="nav-link">JOIN</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-nav-list">
+      <li class="mobile-nav-item"><a href="#" class="mobile-nav-link">HOME</a></li>
+      <li class="mobile-nav-item">
+        <span class="mobile-nav-link" id="mobileGovToggle">GOVERNMENT ▾</span>
+        <ul class="mobile-submenu" id="mobileGovSub">
+          <li><a href="#">Congress</a></li>
+          <li><a href="#">President & Speaker</a></li>
+          <li><a href="#">Elections</a></li>
+        </ul>
       </li>
-      <li class="nav-item">
-        <span class="nav-link">Explore ▾</span>
-        <div class="dropdown-menu">
-          <a href="#">Cities & Districts</a>
-          <a href="#">History</a>
-          <a href="https://civmc-map.github.io/" target="_blank">🗺️ CivMC Map</a>
-        </div>
+      <li class="mobile-nav-item">
+        <span class="mobile-nav-link" id="mobileExploreToggle">EXPLORE ▾</span>
+        <ul class="mobile-submenu" id="mobileExploreSub">
+          <li><a href="#">Cities & Districts</a></li>
+          <li><a href="#">History</a></li>
+          <li><a href="https://civmc-map.github.io/" target="_blank">CivMC Map</a></li>
+        </ul>
       </li>
-      <li class="nav-item">
-        <span class="nav-link">Resources ▾</span>
-        <div class="dropdown-menu">
-          <a href="#">New Player Guide</a>
-          <a href="#">Constitution & Laws</a>
-          <a href="#">Shop Directory</a>
-        </div>
+      <li class="mobile-nav-item">
+        <span class="mobile-nav-link" id="mobileResourcesToggle">RESOURCES ▾</span>
+        <ul class="mobile-submenu" id="mobileResourcesSub">
+          <li><a href="#">New Player Guide</a></li>
+          <li><a href="#">Constitution & Laws</a></li>
+          <li><a href="#">Shop Directory</a></li>
+        </ul>
       </li>
-      <li class="nav-item"><a href="#" class="nav-link">Join Us</a></li>
+      <li class="mobile-nav-item"><a href="#" class="mobile-nav-link">JOIN</a></li>
     </ul>
   </div>
-</nav>
 
-<!-- Mobile Slide Menu -->
-<div class="mobile-overlay" id="mobileOverlay"></div>
-<div class="mobile-menu" id="mobileMenu">
-  <ul class="mobile-nav-list">
-    <li class="mobile-nav-item"><a href="#" class="mobile-nav-link">Home</a></li>
-    <li class="mobile-nav-item">
-      <span class="mobile-nav-link" id="mobileGovToggle">Government ▾</span>
-      <ul class="mobile-submenu" id="mobileGovSub">
-        <li><a href="#">Congress</a></li>
-        <li><a href="#">President & Speaker</a></li>
-        <li><a href="#">Elections</a></li>
-      </ul>
-    </li>
-    <li class="mobile-nav-item">
-      <span class="mobile-nav-link" id="mobileExploreToggle">Explore ▾</span>
-      <ul class="mobile-submenu" id="mobileExploreSub">
-        <li><a href="#">Cities & Districts</a></li>
-        <li><a href="#">History</a></li>
-        <li><a href="https://civmc-map.github.io/" target="_blank">CivMC Map</a></li>
-      </ul>
-    </li>
-    <li class="mobile-nav-item">
-      <span class="mobile-nav-link" id="mobileResourcesToggle">Resources ▾</span>
-      <ul class="mobile-submenu" id="mobileResourcesSub">
-        <li><a href="#">New Player Guide</a></li>
-        <li><a href="#">Constitution & Laws</a></li>
-        <li><a href="#">Shop Directory</a></li>
-      </ul>
-    </li>
-    <li class="mobile-nav-item"><a href="#" class="mobile-nav-link">Join Us</a></li>
-  </ul>
+  <main>
+    <div class="container">
+      <div class="hero">
+        <h1>Welcome to Bloom</h1>
+        <p class="hero-subtitle">A democratic republic on CivMC — where community blooms.</p>
+        <div class="hero-buttons">
+          <a href="#" class="btn btn-primary">NEW PLAYER GUIDE</a>
+          <a href="https://discord.gg/aV6VM32EZR" target="_blank" class="btn btn-secondary">JOIN DISCORD</a>
+        </div>
+      </div>
+
+      <div class="news-section">
+        <div class="news-header">
+          <h3>📰 RECENT NEWS</h3>
+        </div>
+        <div class="news-list">
+          <div class="news-item"><a href="#">Congress passes new infrastructure bill</a><span class="news-date">May 2026</span></div>
+          <div class="news-item"><a href="#">Welcome new citizens to Bloom</a><span class="news-date">April 2026</span></div>
+          <div class="news-item"><a href="#">Upcoming elections announced</a><span class="news-date">April 2026</span></div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Discover Bloom</h2>
+      <p class="section-intro">Explore what makes our nation unique — from democratic government to growing cities.</p>
+
+      <div class="card-grid">
+        <a href="#" class="card">
+          <div class="card-icon">📘</div>
+          <h3>New Player Guide</h3>
+          <p>Everything you need to start your journey in Bloom — from getting set up to finding your first home.</p>
+          <span class="card-arrow">READ MORE →</span>
+        </a>
+        <a href="#" class="card">
+          <div class="card-icon">⚖️</div>
+          <h3>Constitution & Laws</h3>
+          <p>Our founding documents, legal code, and the rights guaranteed to every citizen of Bloom.</p>
+          <span class="card-arrow">VIEW LAWS →</span>
+        </a>
+        <a href="https://civmc-map.github.io/" target="_blank" class="card">
+          <div class="card-icon">🗺️</div>
+          <h3>Interactive Map</h3>
+          <p>Explore Bloom's territory and our place in the wider CivMC world.</p>
+          <span class="card-arrow">OPEN MAP →</span>
+        </a>
+        <a href="#" class="card">
+          <div class="card-icon">🛒</div>
+          <h3>Shop Directory</h3>
+          <p>Find shops, markets, and traders across Bloom — from bulk resources to rare items.</p>
+          <span class="card-arrow">BROWSE →</span>
+        </a>
+        <a href="#" class="card">
+          <div class="card-icon">🏛️</div>
+          <h3>Government</h3>
+          <p>Learn about our elected Congress, the Speaker, President, and how our democracy works.</p>
+          <span class="card-arrow">MEET OFFICIALS →</span>
+        </a>
+        <a href="https://discord.gg/aV6VM32EZR" target="_blank" class="card">
+          <div class="card-icon">💬</div>
+          <h3>Discord Community</h3>
+          <p>Join our active Discord to chat with citizens, ask questions, and get involved.</p>
+          <span class="card-arrow">JOIN NOW →</span>
+        </a>
+      </div>
+
+      <div class="cta">
+        <h2>Ready to join Bloom?</h2>
+        <p>Whether you're a builder, farmer, trader, or politician — there's a place for you here.</p>
+        <div class="hero-buttons">
+          <a href="#" class="btn btn-primary">READ THE GUIDE</a>
+          <a href="https://discord.gg/aV6VM32EZR" target="_blank" class="btn btn-secondary">JOIN DISCORD →</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>🌸 BLOOM — A democratic republic on CivMC. Grow with us.</p>
+    <p style="margin-top: 0.5rem;">DISCORD: <a href="https://discord.gg/aV6VM32EZR" target="_blank" style="color: var(--bloom-gold); text-decoration: none;">https://discord.gg/aV6VM32EZR</a></p>
+  </footer>
 </div>
 
-<main>
-  <div class="container">
-    <!-- Hero -->
-    <div class="hero">
-      <h1>Welcome to Bloom</h1>
-      <p class="hero-subtitle">A democratic republic in the heart of CivMC — where community blooms.</p>
-      <div class="hero-buttons">
-        <a href="#" class="btn btn-primary">📘 New Player Guide</a>
-        <a href="https://discord.gg/aV6VM32EZR" target="_blank" class="btn btn-secondary">💬 Join Discord</a>
-      </div>
-    </div>
-
-    <!-- News Ticker (filler, you can edit later) -->
-    <div class="news-ticker">
-      <h3>📰 Recent News</h3>
-      <div class="news-item"><a href="#">Congress passes new infrastructure bill</a><span class="news-date">- May 2026</span></div>
-      <div class="news-item"><a href="#">Welcome new citizens!</a><span class="news-date">- April 2026</span></div>
-      <div class="news-item"><a href="#">Upcoming elections announced</a><span class="news-date">- April 2026</span></div>
-    </div>
-
-    <!-- Feature Cards -->
-    <h2 class="section-title">Discover Bloom</h2>
-    <p class="section-intro">Explore what makes our nation unique — from our democratic government to our growing cities.</p>
-
-    <div class="cards-grid">
-      <a href="#" class="card">
-        <div class="card-icon">📘</div>
-        <h3>New Player Guide</h3>
-        <p>Everything you need to start your journey in Bloom — from getting set up to finding your first home.</p>
-        <span class="card-link">Read more →</span>
-      </a>
-      <a href="#" class="card">
-        <div class="card-icon">⚖️</div>
-        <h3>Constitution & Laws</h3>
-        <p>Our founding documents, legal code, and the rights guaranteed to every citizen of Bloom.</p>
-        <span class="card-link">View laws →</span>
-      </a>
-      <a href="https://civmc-map.github.io/" target="_blank" class="card">
-        <div class="card-icon">🗺️</div>
-        <h3>Interactive Map</h3>
-        <p>Explore Bloom's territory, neighboring nations, and our place in the wider CivMC world.</p>
-        <span class="card-link">Open map →</span>
-      </a>
-      <a href="#" class="card">
-        <div class="card-icon">🛒</div>
-        <h3>Shop Directory</h3>
-        <p>Find shops, markets, and traders across Bloom — from bulk resources to rare items.</p>
-        <span class="card-link">Browse shops →</span>
-      </a>
-      <a href="#" class="card">
-        <div class="card-icon">🏛️</div>
-        <h3>Government</h3>
-        <p>Learn about our elected Congress, the Speaker, President, and how our democracy works.</p>
-        <span class="card-link">Meet officials →</span>
-      </a>
-      <a href="https://discord.gg/aV6VM32EZR" target="_blank" class="card">
-        <div class="card-icon">💬</div>
-        <h3>Discord Community</h3>
-        <p>Join our active Discord to chat with citizens, ask questions, and get involved.</p>
-        <span class="card-link">Join now →</span>
-      </a>
-    </div>
-
-    <!-- Call to Action -->
-    <div class="cta-section">
-      <h2>Ready to join Bloom?</h2>
-      <p>Whether you're a builder, farmer, trader, or politician — there's a place for you here.</p>
-      <div class="cta-buttons">
-        <a href="#" class="btn btn-cta">Read the Guide</a>
-        <a href="https://discord.gg/aV6VM32EZR" target="_blank" class="btn btn-cta-outline">Join Discord →</a>
-      </div>
-    </div>
-  </div>
-</main>
-
-<footer class="footer">
-  <p>🌸 Bloom — A democratic republic on CivMC. Grow with us.</p>
-  <p style="margin-top: 0.5rem;">Discord: <a href="https://discord.gg/aV6VM32EZR" target="_blank" style="color: var(--bloom-purple);">https://discord.gg/aV6VM32EZR</a></p>
-</footer>
-
 <script>
-  // Mobile menu toggle
-  const menuToggle = document.getElementById('menuToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const mobileOverlay = document.getElementById('mobileOverlay');
+  // Mobile menu
+  const toggle = document.getElementById('mobileToggle');
+  const menu = document.getElementById('mobileMenu');
+  const overlay = document.getElementById('mobileOverlay');
 
-  function openMenu() {
-    mobileMenu.classList.add('open');
-    mobileOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
+  function openMenu() { menu.classList.add('open'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeMenu() { menu.classList.remove('open'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
 
-  function closeMenu() {
-    mobileMenu.classList.remove('open');
-    mobileOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-  }
+  if (toggle) toggle.addEventListener('click', openMenu);
+  if (overlay) overlay.addEventListener('click', closeMenu);
 
-  if (menuToggle) {
-    menuToggle.addEventListener('click', openMenu);
-  }
-  mobileOverlay.addEventListener('click', closeMenu);
-
-  // Mobile submenu toggles
+  // Mobile submenus
   const govToggle = document.getElementById('mobileGovToggle');
   const govSub = document.getElementById('mobileGovSub');
   const exploreToggle = document.getElementById('mobileExploreToggle');
