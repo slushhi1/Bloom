@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>GitHub Pages | Modern Launchpad</title>
+  <!-- Google Fonts + simple reset + subtle gradient background -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fe 0%, #e9eefa 100%);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+      color: #1a2c3e;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* custom container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* header / nav */
+    .site-header {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.6rem;
+      background: linear-gradient(130deg, #1e3c72, #2b4b8f);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #2c3e66;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: #0f2b4f;
+      text-decoration: underline;
+      text-underline-offset: 6px;
+    }
+
+    /* Buttons & cards */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: white;
+      border: 1px solid #cad2e9;
+      padding: 0.6rem 1.2rem;
+      border-radius: 60px;
+      font-weight: 500;
+      text-decoration: none;
+      color: #1f3a5f;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #1f3a5f;
+      border-color: #1f3a5f;
+      color: white;
+      box-shadow: 0 2px 6px rgba(0, 20, 50, 0.1);
+    }
+
+    .btn-primary:hover {
+      background: #11253f;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-outline:hover {
+      background: #f0f4ff;
+      border-color: #8a9fd8;
+    }
+
+    /* hero section */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      margin: 2rem 0 3rem 0;
+    }
+
+    .hero-text {
+      flex: 1.2;
+    }
+
+    .hero-badge {
+      background: rgba(31, 58, 95, 0.08);
+      display: inline-block;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #1f3a5f;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      background: linear-gradient(to right, #1e2f47, #2e4a7c);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #2c425c;
+      max-width: 90%;
+      margin-bottom: 2rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .stat span {
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: #0f2b4f;
+    }
+
+    .hero-image {
+      flex: 0.9;
+      background: radial-gradient(circle at 30% 20%, rgba(40, 90, 150, 0.1), transparent 70%);
+      text-align: center;
+    }
+
+    .code-icon {
+      font-size: 9rem;
+      filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.1));
+    }
+
+    /* features grid */
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 3rem 0 1.5rem;
+      letter-spacing: -0.3px;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: #4a627a;
+      max-width: 650px;
+      margin: 0 auto 2rem auto;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0 1rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.8rem;
+      box-shadow: 0 12px 26px -12px rgba(0, 0, 0, 0.08);
+      transition: all 0.25s;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.12);
+      border-color: rgba(31, 58, 95, 0.1);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card p {
+      color: #4b5e77;
+    }
+
+    /* code preview section */
+    .code-preview {
+      background: #0a1922;
+      border-radius: 1.2rem;
+      padding: 1rem;
+      margin: 3rem 0;
+      box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.2);
+    }
+
+    .preview-header {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+      background: #0f212e;
+      border-radius: 1rem 1rem 0 0;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ff5f56;
+    }
+
+    .dot:nth-child(2) {
+      background: #ffbd2e;
+    }
+
+    .dot:nth-child(3) {
+      background: #27c93f;
+    }
+
+    pre {
+      background: #0a1922;
+      padding: 1.2rem;
+      overflow-x: auto;
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 0.85rem;
+      color: #bbd4f0;
+      border-radius: 0 0 1rem 1rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    code {
+      font-family: inherit;
+    }
+
+    /* cta */
+    .cta-section {
+      text-align: center;
+      background: #ffffffcc;
+      backdrop-filter: blur(4px);
+      border-radius: 2rem;
+      padding: 3rem 2rem;
+      margin: 3rem 0;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .cta-section h2 {
+      font-size: 2rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    /* footer */
+    .footer {
+      border-top: 1px solid #cdd9f0;
+      margin-top: 3rem;
+      padding: 2rem 0 1rem;
+      text-align: center;
+      color: #4a627a;
+      font-size: 0.85rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: #2c3e66;
+    }
+
+    @media (max-width: 700px) {
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+      .nav-wrapper {
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero p {
+        max-width: 100%;
+      }
+      .container {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav-wrapper">
+    <div class="logo">⎔ GitHub Launch</div>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#preview">Code</a></li>
+      <li><a href="#deploy">Deploy</a></li>
+    </ul>
+    <a href="https://github.com" target="_blank" class="btn btn-outline">⭐ Star on GitHub</a>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <!-- Hero section -->
+    <div class="hero">
+      <div class="hero-text">
+        <div class="hero-badge">✨ GitHub Pages ready — zero config</div>
+        <h1>Build & launch<br>your next web project</h1>
+        <p>Beautiful, responsive HTML/CSS template designed for GitHub Pages. Clone, customize, and publish in minutes.</p>
+        <div class="hero-stats">
+          <div class="stat"><span>100%</span><br>free hosting</div>
+          <div class="stat"><span>⚡ fast</span><br>global CDN</div>
+          <div class="stat"><span>🔒 HTTPS</span><br>by default</div>
+        </div>
+        <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+          <a href="#get-started" class="btn btn-primary" style="background:#1f3a5f;">Get started →</a>
+          <a href="https://pages.github.com" target="_blank" class="btn btn-outline">Learn more</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="code-icon">📄🖥️</div>
+        <div style="font-size: 0.9rem; background: #fff; display: inline-block; padding: 0.3rem 1rem; border-radius: 30px; margin-top: 0.5rem;">index.html</div>
+      </div>
+    </div>
+
+    <!-- Features section -->
+    <div id="features">
+      <h2 class="section-title">Why this template works great on GitHub</h2>
+      <p class="section-sub">Optimized for Pages, lightweight and ready for your custom content.</p>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-icon">📁</div>
+          <h3>Single file deploy</h3>
+          <p>One HTML file, optional CSS/JS inside — perfectly suited for repos, forks, and quick demos.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎨</div>
+          <h3>Modern & responsive</h3>
+          <p>Fully fluid layout, works on mobile, tablet & desktop. No external dependencies.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🚀</div>
+          <h3>GitHub workflow ready</h3>
+          <p>Just push to your repository's main branch, enable Pages, and it's live.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🌙</div>
+          <h3>Clean aesthetics</h3>
+          <p>Subtle gradients, cards, sticky header — feels professional with minimal code.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Code preview snippet: how to deploy -->
+    <div id="preview">
+      <h2 class="section-title">⚡ GitHub Pages in 3 steps</h2>
+      <div class="code-preview">
+        <div class="preview-header">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span style="margin-left: 0.5rem; color:#8aaec0; font-size:0.8rem;">deployment-guide</span>
+        </div>
+        <pre><code>1️⃣ Create a new repository on GitHub → named: your-username.github.io
+
+2️⃣ Upload or commit this index.html file to the main branch
+
+3️⃣ Go to Settings → Pages → branch: main → / (root) → Save
+
+🎉 Your site will be live at https://your-username.github.io
+
+✨ Pro tip: You can also use a custom domain or different project repo.</code></pre>
+      </div>
+    </div>
+
+    <!-- GitHub Pages specific info + showcase -->
+    <div id="deploy" style="display: flex; flex-wrap: wrap; gap: 2rem; margin: 3rem 0; align-items: center;">
+      <div style="flex:1; background: white; border-radius: 2rem; padding: 2rem; box-shadow: 0 12px 20px -10px rgba(0,0,0,0.05);">
+        <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">📦 Ready to push?</h3>
+        <p style="margin-bottom: 1rem;">This webpage includes all necessary meta tags, viewport settings, and modern flex/grid layout. Perfect for portfolio, project showcase, or personal site.</p>
+        <ul style="margin-left: 1.5rem; color:#2c3e66;">
+          <li>No build tools or complicated configs</li>
+          <li>Self-contained: copy & paste into `index.html`</li>
+          <li>Works with GitHub Actions if you need automation later</li>
+        </ul>
+        <div style="margin-top: 1.5rem;">
+          <a href="#" class="btn btn-primary" id="copyNoticeBtn" style="background:#1f3a5f;">📋 Copy HTML snippet reminder</a>
+        </div>
+      </div>
+      <div style="flex:1; background: #eef3ff; border-radius: 2rem; padding: 2rem;">
+        <h3>🔧 Quick repo checklist</h3>
+        <div style="display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1.2rem;">
+          <div>✅ <strong>index.html</strong> in root directory</div>
+          <div>✅ <strong>README.md</strong> (optional but recommended)</div>
+          <div>✅ Enable GitHub Pages from repo Settings</div>
+          <div>✅ Wait 1–2 minutes → site appears</div>
+        </div>
+        <hr style="margin: 1rem 0; border-color:#cbddec;">
+        <p style="font-size:0.85rem">💡 Tip: Use the "Code" button on GitHub to download or clone this template.</p>
+      </div>
+    </div>
+
+    <!-- CTA section get started -->
+    <div class="cta-section" id="get-started">
+      <h2>Start building your GitHub Pages site today</h2>
+      <p style="margin-top: 1rem; max-width: 500px; margin-left: auto; margin-right: auto;">You have everything you need — modern design, interactive elements, and a ready-to-deploy structure.</p>
+      <div class="cta-buttons">
+        <a href="https://github.com/new" target="_blank" class="btn btn-primary" style="background:#1f3a5f;">Create New Repo →</a>
+        <a href="#" id="downloadHtmlBtn" class="btn btn-outline">📥 Download this .html</a>
+      </div>
+      <p style="margin-top: 1.8rem; font-size: 0.8rem;">✨ No installation, serverless, powered by GitHub infrastructure.</p>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-links">
+      <a href="#">Home</a>
+      <a href="#features">Features</a>
+      <a href="#preview">Guide</a>
+      <a href="https://docs.github.com/en/pages" target="_blank">GitHub Pages Docs</a>
+      <a href="#">Contact</a>
+    </div>
+    <p>© 2025 • Made for GitHub Pages • Open source template • 🚀 Deploy with one commit</p>
+  </div>
+</footer>
+
+<!-- inline script for demo interactivity & download feature -->
+<script>
+  (function() {
+    // 1) Copy reminder alert (for the button that shows html snippet reminder)
+    const copyBtn = document.getElementById('copyNoticeBtn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const reminderText = `🔁 GITHUB PAGES REMINDER:\n1. Rename this file to index.html\n2. Add to repo root\n3. Settings > Pages > Branch: main\n\nYour site will be live shortly.`;
+        navigator.clipboard.writeText(reminderText).then(() => {
+          alert('✅ Checklist copied to clipboard!\nPaste it anywhere to remember the steps.');
+        }).catch(() => {
+          alert('📋 Reminder: ensure index.html in root → enable GitHub Pages');
+        });
+      });
+    }
+
+    // 2) Download this HTML file (the current page source)
+    const downloadBtn = document.getElementById('downloadHtmlBtn');
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        // get current html content: we can grab the whole document html
+        const docHtml = document.documentElement.outerHTML;
+        const blob = new Blob([docHtml], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'index.html';   // standard filename for GitHub Pages
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        // optional feedback
+        alert('✅ index.html downloaded! Move this file to your GitHub repository root folder.');
+      });
+    }
+
+    // 3) smooth scrolling for all anchor links (optional)
+    const allLinks = document.querySelectorAll('a[href^="#"]');
+    allLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        const hash = this.getAttribute('href');
+        if (hash === "#" || hash === "") return;
+        const targetElement = document.querySelector(hash);
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // update url without jump
+          history.pushState(null, null, hash);
+        }
+      });
+    });
+
+    // optional interactive console greeting (GitHub Pages vibe)
+    console.log("🎉 GitHub Pages template loaded — ready to deploy! 🚀");
+    console.log("Tip: go to repo Settings > Pages and select main branch.");
+  })();
+</script>
+</body>
+</html>
