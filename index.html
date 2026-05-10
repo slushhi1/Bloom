@@ -31,17 +31,6 @@
       background: #05020c;
     }
 
-    /* Fixed background that slowly zooms as you scroll */
-    .bg-zoom {
-      position: fixed;
-      inset: -10%;
-      z-index: -1;
-      background: url('/Bloom/assets/images/bloom-bg.png') center / cover no-repeat;
-      transform-origin: center center;
-      transform: scale(1);
-      will-change: transform;
-    }
-
     /* ─── HEADER ─── */
     header {
       position: fixed;
@@ -147,11 +136,29 @@
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
+      transition: opacity 0.8s ease;
+    }
+
+    /* Crossfade pseudo-element */
+    .panel::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: inherit;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      z-index: -1;
+    }
+
+    .panel.bg-visible::after {
+      opacity: 1;
     }
 
     /* ── HERO ── */
     .panel-hero {
-      background-image: linear-gradient(to bottom, rgba(5,2,12,0.45) 0%, rgba(5,2,12,0.05) 50%, rgba(5,2,12,0.65) 100%);
+      background-image:
+        linear-gradient(to bottom, rgba(5,2,12,0.52) 0%, rgba(5,2,12,0.08) 50%, rgba(5,2,12,0.7) 100%),
+        url('/Bloom/assets/images/bloom-bg.png');
       align-items: flex-end;
       padding: 0 2rem 5rem;
       text-align: center;
@@ -235,11 +242,16 @@
 
     /* ── NATION ── */
     .panel-nation {
-      background-image: linear-gradient(to bottom, rgba(5,2,12,0.55) 0%, rgba(5,2,12,0.35) 50%, rgba(5,2,12,0.75) 100%);
+      background-image:
+        linear-gradient(to bottom, rgba(5,2,12,0.58) 0%, rgba(5,2,12,0.3) 50%, rgba(5,2,12,0.78) 100%),
+        url('/Bloom/assets/images/bloom-bg4.png');
     }
 
     /* ── GOVERNMENT ── */
     .panel-government {
+      background-image:
+        linear-gradient(to bottom, rgba(3,1,10,0.65) 0%, rgba(3,1,10,0.38) 50%, rgba(3,1,10,0.85) 100%),
+        url('/Bloom/assets/images/bloom-bg2.png');
       align-items: flex-start;
       padding-top: 0;
       min-height: unset;
@@ -433,7 +445,12 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      background-image: linear-gradient(to bottom, rgba(3,1,10,0.78) 0%, rgba(3,1,10,0.55) 30%, rgba(3,1,10,0.82) 100%);
+      background-image:
+        linear-gradient(to bottom, rgba(3,1,10,0.82) 0%, rgba(3,1,10,0.6) 30%, rgba(3,1,10,0.88) 100%),
+        url('/Bloom/assets/images/bloom-bg3.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
     }
 
     .borders-top {
@@ -587,7 +604,6 @@
   </style>
 </head>
 <body>
-<div class="bg-zoom" id="bgZoom"></div>
 
 <!-- ─── HEADER ─── -->
 <header>
@@ -892,15 +908,14 @@
     btnMainland.classList.remove('active');
   });
 
-  /* Scroll zoom background */
-  const bgZoom = document.getElementById('bgZoom');
-  window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const maxScroll = document.body.scrollHeight - window.innerHeight;
-    const progress = Math.min(scrolled / maxScroll, 1);
-    const scale = 1 + progress * 0.18;
-    bgZoom.style.transform = `scale(${scale})`;
-  }, { passive: true });
+  /* Crossfade background on scroll */
+  const bgObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('bg-visible');
+      else e.target.classList.remove('bg-visible');
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.panel').forEach(el => bgObserver.observe(el));
 
   setTimeout(() => { map.invalidateSize(); map.setView(mc(-4150, -6800), -2.5); }, 200);
 </script>
