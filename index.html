@@ -840,16 +840,21 @@
   L.control.attribution({ prefix: '<a href="https://civmc-map.github.io" target="_blank">CivMC Map</a>' }).addTo(map);
 
   // Territory overlay image
-  const territoryBounds = [mc(-12000, -12000), mc(12000, 12000)];
+  const territoryBounds = [mc(-11000, -11000), mc(11000, 11000)];
   const territoryOverlay = L.imageOverlay(
     'https://slushhi1.github.io/civmc-map.github.io/CivMCMap44Transparent.png',
     territoryBounds,
     { opacity: 0.7, interactive: false }
   );
 
-  // Toggle button
-  let overlayOn = false;
+  // Start with claims on
+  let overlayOn = true;
+  territoryOverlay.addTo(map);
+
   const toggleBtn = document.getElementById('claims-toggle');
+  toggleBtn.classList.add('active');
+  toggleBtn.textContent = 'Claims: On';
+
   toggleBtn.addEventListener('click', () => {
     overlayOn = !overlayOn;
     if (overlayOn) {
