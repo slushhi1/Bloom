@@ -31,6 +31,17 @@
       background: #05020c;
     }
 
+    /* Fixed background that slowly zooms as you scroll */
+    .bg-zoom {
+      position: fixed;
+      inset: -10%;
+      z-index: -1;
+      background: url('/Bloom/assets/images/bloom-bg.png') center / cover no-repeat;
+      transform-origin: center center;
+      transform: scale(1);
+      will-change: transform;
+    }
+
     /* ─── HEADER ─── */
     header {
       position: fixed;
@@ -140,9 +151,7 @@
 
     /* ── HERO ── */
     .panel-hero {
-      background-image:
-        linear-gradient(to bottom, rgba(5,2,12,0.52) 0%, rgba(5,2,12,0.08) 50%, rgba(5,2,12,0.7) 100%),
-        url('/Bloom/assets/images/bloom-bg.png');
+      background-image: linear-gradient(to bottom, rgba(5,2,12,0.45) 0%, rgba(5,2,12,0.05) 50%, rgba(5,2,12,0.65) 100%);
       align-items: flex-end;
       padding: 0 2rem 5rem;
       text-align: center;
@@ -226,19 +235,14 @@
 
     /* ── NATION ── */
     .panel-nation {
-      background-image:
-        linear-gradient(to bottom, rgba(5,2,12,0.58) 0%, rgba(5,2,12,0.3) 50%, rgba(5,2,12,0.78) 100%),
-        url('/Bloom/assets/images/bloom-bg.png');
+      background-image: linear-gradient(to bottom, rgba(5,2,12,0.55) 0%, rgba(5,2,12,0.35) 50%, rgba(5,2,12,0.75) 100%);
     }
 
     /* ── GOVERNMENT ── */
     .panel-government {
-      background-image:
-        linear-gradient(to bottom, rgba(3,1,10,0.65) 0%, rgba(3,1,10,0.38) 50%, rgba(3,1,10,0.85) 100%),
-        url('/Bloom/assets/images/bloom-bg.png');
       align-items: flex-start;
       padding-top: 0;
-      min-height: unset; /* let content set height */
+      min-height: unset;
     }
 
     /* ── BORDERS ── */
@@ -429,12 +433,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      background-image:
-        linear-gradient(to bottom, rgba(3,1,10,0.82) 0%, rgba(3,1,10,0.6) 30%, rgba(3,1,10,0.88) 100%),
-        url('/Bloom/assets/images/bloom-bg.png');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
+      background-image: linear-gradient(to bottom, rgba(3,1,10,0.78) 0%, rgba(3,1,10,0.55) 30%, rgba(3,1,10,0.82) 100%);
     }
 
     .borders-top {
@@ -588,6 +587,7 @@
   </style>
 </head>
 <body>
+<div class="bg-zoom" id="bgZoom"></div>
 
 <!-- ─── HEADER ─── -->
 <header>
@@ -891,6 +891,16 @@
     btnCane.classList.add('active');
     btnMainland.classList.remove('active');
   });
+
+  /* Scroll zoom background */
+  const bgZoom = document.getElementById('bgZoom');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const progress = Math.min(scrolled / maxScroll, 1);
+    const scale = 1 + progress * 0.18;
+    bgZoom.style.transform = `scale(${scale})`;
+  }, { passive: true });
 
   setTimeout(() => { map.invalidateSize(); map.setView(mc(-4150, -6800), -2.5); }, 200);
 </script>
