@@ -165,15 +165,6 @@
       align-items: flex-end;
       padding: 0 2rem 5rem;
       text-align: center;
-      overflow: hidden;
-      height: 100vh;
-      min-height: unset;
-    }
-
-    .hero-bottom-content {
-      transform: translateY(200px);
-      opacity: 0;
-      will-change: transform, opacity;
     }
 
     .hero-title {
@@ -183,6 +174,8 @@
       letter-spacing: 0.1em;
       color: var(--white);
       text-shadow: 0 2px 48px rgba(0,0,0,0.65);
+      opacity: 0;
+      animation: riseIn 0.9s 0.2s ease forwards;
     }
 
     .hero-rule {
@@ -191,6 +184,8 @@
       gap: 0.8rem;
       margin: 1.4rem auto 1.8rem;
       width: 220px;
+      opacity: 0;
+      animation: riseIn 0.9s 0.38s ease forwards;
     }
     .hero-rule::before, .hero-rule::after { content: ''; flex: 1; height: 1px; }
     .hero-rule::before { background: linear-gradient(90deg, transparent, var(--purple-rich)); }
@@ -211,6 +206,8 @@
       max-width: 400px;
       width: 100%;
       margin: 0 auto;
+      opacity: 0;
+      animation: riseIn 0.9s 0.55s ease forwards;
     }
 
     .portal-btn {
@@ -682,7 +679,7 @@
      1 — HERO
 ══════════════════════════════════════ -->
 <section class="panel panel-hero" style="padding-top:58px;">
-  <div id="heroContent" class="hero-bottom-content">
+  <div>
     <h1 class="hero-title">Welcome to Bloom</h1>
     <div class="hero-rule"><div class="rule-diamond"></div></div>
     <div class="portals">
@@ -987,52 +984,6 @@
     });
   }, { threshold: 0.15 });
   document.querySelectorAll('.panel').forEach(el => bgObserver.observe(el));
-
-  /* ── HERO SCROLL JACK ── */
-  const heroContent = document.getElementById('heroContent');
-  const heroSection = document.querySelector('.panel-hero');
-  const travelDistance = 200; // how far text travels in px
-  let virtualScroll = 0;
-  let locked = true;
-  let lastY = 0;
-
-  // Prevent default scroll while locked, use wheel/touch to drive virtual scroll
-  function onWheel(e) {
-    if (!locked) return;
-    e.preventDefault();
-    virtualScroll = Math.min(Math.max(virtualScroll + e.deltaY * 0.8, 0), travelDistance);
-    updateHero();
-    if (virtualScroll >= travelDistance) unlock();
-  }
-
-  let touchStartY = 0;
-  function onTouchStart(e) { touchStartY = e.touches[0].clientY; }
-  function onTouchMove(e) {
-    if (!locked) return;
-    e.preventDefault();
-    const delta = touchStartY - e.touches[0].clientY;
-    touchStartY = e.touches[0].clientY;
-    virtualScroll = Math.min(Math.max(virtualScroll + delta, 0), travelDistance);
-    updateHero();
-    if (virtualScroll >= travelDistance) unlock();
-  }
-
-  function updateHero() {
-    const progress = virtualScroll / travelDistance;
-    const y = travelDistance - (progress * travelDistance);
-    heroContent.style.transform = `translateY(${y}px)`;
-    heroContent.style.opacity = progress;
-  }
-
-  function unlock() {
-    locked = false;
-    window.removeEventListener('wheel', onWheel, { passive: false });
-    window.removeEventListener('touchmove', onTouchMove, { passive: false });
-  }
-
-  window.addEventListener('wheel', onWheel, { passive: false });
-  window.addEventListener('touchstart', onTouchStart, { passive: true });
-  window.addEventListener('touchmove', onTouchMove, { passive: false });
 
   setTimeout(() => { map.invalidateSize(); map.setView(mc(-4150, -6800), -2.5); }, 200);
 </script>
