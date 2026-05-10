@@ -157,7 +157,7 @@
     /* ── HERO ── */
     .panel-hero {
       background-image:
-        linear-gradient(to bottom, rgba(5,2,12,0.52) 0%, rgba(5,2,12,0.08) 50%, rgba(5,2,12,0.7) 100%),
+        linear-gradient(to bottom, rgba(5,2,12,0.35) 0%, rgba(5,2,12,0.05) 40%, rgba(5,2,12,0.75) 100%),
         url('/Bloom/assets/images/bloom-bg.png');
       align-items: flex-end;
       padding: 0 2rem 5rem;
@@ -243,8 +243,11 @@
     /* ── NATION ── */
     .panel-nation {
       background-image:
-        linear-gradient(to bottom, rgba(5,2,12,0.58) 0%, rgba(5,2,12,0.3) 50%, rgba(5,2,12,0.78) 100%),
+        linear-gradient(to bottom, rgba(5,2,12,0.3) 0%, rgba(5,2,12,0.1) 50%, rgba(5,2,12,0.3) 100%),
         url('/Bloom/assets/images/bloom-bg4.png');
+      padding: 0;
+      align-items: center;
+      justify-content: center;
     }
 
     /* ── GOVERNMENT ── */
@@ -274,6 +277,26 @@
       max-width: 860px;
       width: calc(100% - 4rem);
       padding: 3.25rem 3.75rem;
+    }
+
+    /* Nation section — full width divider strip */
+    .nation-divider {
+      width: 100%;
+      background: rgba(6, 3, 16, 0.82);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 4rem 2.5rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .nation-divider .content-box {
+      background: transparent;
+      backdrop-filter: none;
+      border: none;
+      padding: 0;
     }
 
     .sec-tag {
@@ -657,13 +680,15 @@
      2 — OUR NATION
 ══════════════════════════════════════ -->
 <section id="nation" class="panel panel-nation">
-  <div class="content-box reveal">
-    <span class="sec-tag">Our Nation</span>
-    <h2 class="sec-title">Welcome to Bloom</h2>
-    <div class="sec-rule"></div>
-    <p class="sec-body">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-    </p>
+  <div class="nation-divider">
+    <div class="content-box reveal">
+      <span class="sec-tag">Our Nation</span>
+      <h2 class="sec-title">Welcome to Bloom</h2>
+      <div class="sec-rule"></div>
+      <p class="sec-body">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+      </p>
+    </div>
   </div>
 </section>
 
