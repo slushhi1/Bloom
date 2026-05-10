@@ -451,6 +451,7 @@
       height: 600px;
       border-top: 1px solid var(--border);
       background: #050210;
+      position: relative;
     }
 
     #bloom-map {
@@ -740,6 +741,7 @@
 
     <div class="map-wrap">
       <div id="bloom-map"></div>
+      <button id="claims-toggle" class="claims-toggle">Claims: Off</button>
     </div>
   </div>
 </section>
@@ -798,7 +800,7 @@
   }).addTo(map);
 
   // Set view centered on Bloom: x=-4150, z=-5800, radius~2500
-  map.setView(mc(-4150, -5800), -2);
+  map.setView(mc(-4150, -6200), -2);
 
   // Bloom marker (placeholder until polygon coords are added)
   const bloomIcon = L.divIcon({
@@ -837,11 +839,59 @@
 
   L.control.attribution({ prefix: '<a href="https://civmc-map.github.io" target="_blank">CivMC Map</a>' }).addTo(map);
 
+  // Territory overlay image
+  const territoryBounds = [mc(-12000, -12000), mc(12000, 12000)];
+  const territoryOverlay = L.imageOverlay(
+    'https://slushhi1.github.io/civmc-map.github.io/CivMCMap44Transparent.png',
+    territoryBounds,
+    { opacity: 0.7, interactive: false }
+  );
+
+  // Toggle button
+  let overlayOn = false;
+  const toggleBtn = document.getElementById('claims-toggle');
+  toggleBtn.addEventListener('click', () => {
+    overlayOn = !overlayOn;
+    if (overlayOn) {
+      territoryOverlay.addTo(map);
+      toggleBtn.classList.add('active');
+      toggleBtn.textContent = 'Claims: On';
+    } else {
+      map.removeLayer(territoryOverlay);
+      toggleBtn.classList.remove('active');
+      toggleBtn.textContent = 'Claims: Off';
+    }
+  });
+
   // Force map to recalculate size after render
   setTimeout(() => map.invalidateSize(), 100);
 </script>
 
 <style>
+  .claims-toggle {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 1000;
+    background: rgba(10, 5, 22, 0.88);
+    border: 1px solid rgba(112, 64, 176, 0.4);
+    color: #b8b4c2;
+    font-family: 'Cinzel', serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.18em;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .claims-toggle:hover {
+    border-color: var(--purple-rich);
+    color: var(--white);
+  }
+  .claims-toggle.active {
+    background: rgba(112, 64, 176, 0.25);
+    border-color: var(--purple-rich);
+    color: var(--white);
+  }
   .bloom-tooltip {
     background: rgba(10, 5, 22, 0.88);
     border: 1px solid rgba(112, 64, 176, 0.4);
