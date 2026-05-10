@@ -756,12 +756,12 @@
   /* Mobile drawer */
   const toggle  = document.getElementById('navToggle');
   const drawer  = document.getElementById('drawer');
-  const overlay = document.getElementById('drawerOverlay');
+  const drawerOverlay = document.getElementById('drawerOverlay');
   const close   = document.getElementById('drawerClose');
-  function openDrawer()  { drawer.classList.add('open'); overlay.classList.add('on'); document.body.style.overflow='hidden'; }
-  function closeDrawer() { drawer.classList.remove('open'); overlay.classList.remove('on'); document.body.style.overflow=''; }
+  function openDrawer()  { drawer.classList.add('open'); drawerOverlay.classList.add('on'); document.body.style.overflow='hidden'; }
+  function closeDrawer() { drawer.classList.remove('open'); drawerOverlay.classList.remove('on'); document.body.style.overflow=''; }
   toggle.addEventListener('click', openDrawer);
-  overlay.addEventListener('click', closeDrawer);
+  drawerOverlay.addEventListener('click', closeDrawer);
   close.addEventListener('click', closeDrawer);
   drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
 
