@@ -219,10 +219,9 @@
     .gov-wrapper {
       width: 100%;
       border-bottom: 1px solid var(--border);
-      padding: 5rem 2rem 5rem;
+      padding: 5rem 2rem;
       position: relative;
       overflow: hidden;
-      min-height: 100vh;
     }
 
     .gov-wrapper::before {
@@ -230,7 +229,7 @@
       position: absolute;
       inset: 0;
       background-image: url('/Bloom/assets/images/bloom-bg2.png');
-      background-size: cover;
+      background-size: 130%;
       background-position: right center;
       filter: blur(6px) brightness(0.35);
       transform: scale(1.04);
@@ -615,7 +614,60 @@
       </div>
     </div>
 
-    <div class="reveal reveal-d3" style="margin-top:3rem;">
+  </div>
+</div>
+
+<!-- ─── LAWS & CONSTITUTION ─── -->
+<div style="background: #05020c; border-top: 1px solid var(--border); padding: 5rem 2rem;">
+  <div style="max-width:1100px; margin:0 auto;">
+
+    <div class="reveal" style="margin-bottom:3rem;">
+      <div style="font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.38em; color:var(--chrome); margin-bottom:1.25rem; display:flex; align-items:center; gap:1rem;">
+        Recently Passed Laws
+        <span style="flex:1; height:1px; background:var(--border); display:block;"></span>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border);">
+
+        <!-- Law entry — duplicate this block for each law, newest first -->
+        <div style="background:rgba(14,7,30,0.82); padding:1.25rem 1.5rem;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:1rem; margin-bottom:0.85rem;">
+            <div style="font-family:'Cinzel',serif; font-size:0.62rem; color:var(--chrome-light); letter-spacing:0.08em;">Infrastructure Expansion Act</div>
+            <div style="font-family:'Cinzel',serif; font-size:0.45rem; letter-spacing:0.2em; color:var(--purple-rich); white-space:nowrap;">May 2026</div>
+          </div>
+          <iframe
+            src="https://docs.google.com/document/d/1gmTk6I_L0L1TnGOi48wGtyqUFw2802yBO7BsCYMxwps/preview"
+            style="width:100%; height:180px; border:none; display:block; background:#fff; pointer-events:none;"
+            loading="lazy"
+            title="Infrastructure Expansion Act"
+          ></iframe>
+          <div style="margin-top:0.65rem;">
+            <a href="https://docs.google.com/document/d/1gmTk6I_L0L1TnGOi48wGtyqUFw2802yBO7BsCYMxwps/edit" target="_blank" style="font-family:'Cinzel',serif; font-size:0.48rem; letter-spacing:0.14em; color:var(--chrome); text-decoration:none;" onmouseover="this.style.color='#f4f2f7'" onmouseout="this.style.color='#a8a4b8'">Open &rarr;</a>
+          </div>
+        </div>
+
+        <div style="background:rgba(14,7,30,0.82); padding:1.25rem 1.5rem;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:1rem; margin-bottom:0.85rem;">
+            <div style="font-family:'Cinzel',serif; font-size:0.62rem; color:var(--chrome-light); letter-spacing:0.08em;">Agricultural Reform Act</div>
+            <div style="font-family:'Cinzel',serif; font-size:0.45rem; letter-spacing:0.2em; color:var(--purple-rich); white-space:nowrap;">April 2026</div>
+          </div>
+          <iframe
+            src="https://docs.google.com/document/d/1gmTk6I_L0L1TnGOi48wGtyqUFw2802yBO7BsCYMxwps/preview"
+            style="width:100%; height:180px; border:none; display:block; background:#fff; pointer-events:none;"
+            loading="lazy"
+            title="Agricultural Reform Act"
+          ></iframe>
+          <div style="margin-top:0.65rem;">
+            <a href="https://docs.google.com/document/d/1gmTk6I_L0L1TnGOi48wGtyqUFw2802yBO7BsCYMxwps/edit" target="_blank" style="font-family:'Cinzel',serif; font-size:0.48rem; letter-spacing:0.14em; color:var(--chrome); text-decoration:none;" onmouseover="this.style.color='#f4f2f7'" onmouseout="this.style.color='#a8a4b8'">Open &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Add more law entries here -->
+
+      </div>
+    </div>
+
+    <div class="reveal">
       <div style="font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.38em; color:var(--chrome); margin-bottom:1.25rem; display:flex; align-items:center; gap:1rem;">
         Constitution
         <span style="flex:1; height:1px; background:var(--border); display:block;"></span>
