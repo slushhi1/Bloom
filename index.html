@@ -450,8 +450,13 @@
       width: 100%;
       height: 600px;
       border-top: 1px solid var(--border);
-      position: relative;
       background: #050210;
+    }
+
+    #bloom-map {
+      width: 100%;
+      height: 600px;
+      background: #06030f;
     }
 
     /* Map fallback (shown if iframe blocked) */
@@ -831,14 +836,12 @@
   // }).addTo(map);
 
   L.control.attribution({ prefix: '<a href="https://civmc-map.github.io" target="_blank">CivMC Map</a>' }).addTo(map);
+
+  // Force map to recalculate size after render
+  setTimeout(() => map.invalidateSize(), 100);
 </script>
 
 <style>
-  #bloom-map {
-    width: 100%;
-    height: 600px;
-    background: #06030f;
-  }
   .bloom-tooltip {
     background: rgba(10, 5, 22, 0.88);
     border: 1px solid rgba(112, 64, 176, 0.4);
