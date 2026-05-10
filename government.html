@@ -218,22 +218,35 @@
     /* ─── CONTENT ─── */
     .gov-wrapper {
       width: 100%;
-      background: rgba(4, 2, 12, 0.55);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      padding: 5rem 2rem;
-      background-image:
-        linear-gradient(to bottom, rgba(3,1,10,0.4) 0%, rgba(3,1,10,0.2) 50%, rgba(3,1,10,0.4) 100%),
-        url('/Bloom/assets/images/bloom-bg2.png');
+      padding: 5rem 2rem 5rem;
+      position: relative;
+      overflow: hidden;
+      min-height: 100vh;
+    }
+
+    .gov-wrapper::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('/Bloom/assets/images/bloom-bg2.png');
       background-size: cover;
       background-position: center;
-      background-attachment: scroll;
+      filter: blur(6px) brightness(0.35);
+      transform: scale(1.04);
+      z-index: 0;
+    }
+
+    .gov-inner {
+      position: relative;
+      z-index: 1;
     }
 
     .gov-inner {
       max-width: 1100px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .gov-intro { max-width: 720px; margin-bottom: 3.5rem; }
@@ -508,18 +521,16 @@
   </ul>
 </div>
 
-<!-- ─── PAGE HERO ─── -->
-<div style="margin-top:72px; background-image: linear-gradient(to bottom, rgba(3,1,10,0.65) 0%, rgba(3,1,10,0.38) 50%, rgba(3,1,10,0.85) 100%), url('/Bloom/assets/images/bloom-bg2.png'); background-size:cover; background-position:center; border-bottom: 1px solid var(--border); padding: 5rem 2.5rem 3rem;">
-  <div style="max-width:1100px; margin:0 auto;">
-    <span style="font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.4em; color:var(--purple-rich); display:block; margin-bottom:0.75rem;">Governance</span>
-    <h1 style="font-family:'Cinzel',serif; font-size:clamp(1.8rem,4vw,3.2rem); font-weight:500; letter-spacing:0.08em; color:var(--white); margin-bottom:1rem;">The Government of Bloom</h1>
-    <div style="width:44px; height:1px; background:linear-gradient(90deg, var(--purple-rich), transparent);"></div>
-  </div>
-</div>
-
 <!-- ─── GOVERNMENT CONTENT ─── -->
-<div class="gov-wrapper">
+<div class="gov-wrapper" style="margin-top:72px;">
   <div class="gov-inner">
+
+    <!-- Title -->
+    <div style="padding-bottom: 3.5rem; border-bottom: 1px solid var(--border); margin-bottom: 3.5rem;">
+      <span style="font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.4em; color:var(--purple-rich); display:block; margin-bottom:0.75rem;">Governance</span>
+      <h1 style="font-family:'Cinzel',serif; font-size:clamp(1.8rem,4vw,3.2rem); font-weight:500; letter-spacing:0.08em; color:var(--white); margin-bottom:1rem;">The Government of Bloom</h1>
+      <div style="width:44px; height:1px; background:linear-gradient(90deg, var(--purple-rich), transparent);"></div>
+    </div>
 
     <div class="gov-intro reveal">
       <p class="sec-body">The Republic of Bloom is governed by an elected Congress of seven members chosen by citizens every two months. Congress elects a Speaker who serves as Head of State. A permanent President holds executive authority over Bloom's namelayer groups and constitutional matters. Together, these three branches uphold the rule of law and the will of Bloomeans.</p>
