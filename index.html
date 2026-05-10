@@ -741,7 +741,8 @@
 
     <div class="map-wrap">
       <div id="bloom-map"></div>
-      <button id="claims-toggle" class="claims-toggle">Claims: Off</button>
+      <div id="cane-map"></div>
+      <button id="claims-toggle" class="claims-toggle">Claims: On</button>
     </div>
   </div>
 </section>
@@ -870,9 +871,77 @@
 
   // Force map to recalculate size after render
   setTimeout(() => map.invalidateSize(), 100);
+
+  /* ── CANE CORP INSET MAP ── */
+  const inset = L.map('cane-map', {
+    crs: L.CRS.Simple,
+    minZoom: -5,
+    maxZoom: 0,
+    zoomSnap: 0.5,
+    zoomDelta: 0.5,
+    attributionControl: false,
+    zoomControl: false,
+    dragging: false,
+    scrollWheelZoom: false,
+    doubleClickZoom: false,
+    boxZoom: false,
+    keyboard: false,
+    touchZoom: false
+  });
+
+  new CivTiles('', {
+    minZoom: -5, maxZoom: 0,
+    tileSize: 256, noWrap: true,
+    errorTileUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
+  }).addTo(inset);
+
+  inset.setView(mc(-3070, -810), -2);
+
+  // Cane Corp marker
+  const caneIcon = L.divIcon({
+    className: '',
+    html: `<div style="
+      width: 10px; height: 10px;
+      background: #7040b0;
+      border: 2px solid #d8d5de;
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(112,64,176,0.8);
+    "></div>`,
+    iconSize: [10, 10],
+    iconAnchor: [5, 5]
+  });
+
+  L.marker(mc(-3070, -810), { icon: caneIcon })
+    .addTo(inset)
+    .bindTooltip('Cane Corp', {
+      permanent: true,
+      direction: 'bottom',
+      offset: [0, 4],
+      className: 'bloom-tooltip'
+    });
+
+  // Add territory overlay to inset too
+  L.imageOverlay(
+    'https://slushhi1.github.io/civmc-map.github.io/CivMCMap44Transparent.png',
+    territoryBounds,
+    { opacity: 0.7, interactive: false }
+  ).addTo(inset);
+
+  setTimeout(() => inset.invalidateSize(), 100);
 </script>
 
 <style>
+  #cane-map {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 200px;
+    height: 160px;
+    z-index: 1000;
+    border: 1px solid rgba(112, 64, 176, 0.5);
+    box-shadow: 0 0 12px rgba(0,0,0,0.6);
+    background: #06030f;
+  }
   .claims-toggle {
     position: absolute;
     bottom: 1rem;
