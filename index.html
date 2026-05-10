@@ -892,33 +892,34 @@
     btnMainland.classList.remove('active');
   });
 
-  setTimeout(() => map.invalidateSize(), 100);
+  setTimeout(() => { map.invalidateSize(); map.setView(mc(-4150, -6800), -2.5); }, 200);
 </script>
 
 <style>
   .map-nav-btns {
     position: absolute;
-    top: 1rem;
+    top: 5rem;
     left: 1rem;
     z-index: 1000;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.5rem;
   }
   .map-nav-btn {
     background: rgba(10, 5, 22, 0.88);
     border: 1px solid rgba(112, 64, 176, 0.35);
     color: #b8b4c2;
     font-family: 'Cinzel', serif;
-    font-size: 0.5rem;
+    font-size: 0.6rem;
     letter-spacing: 0.18em;
-    padding: 0.5rem 1.1rem;
+    padding: 0.7rem 1.6rem;
     cursor: pointer;
     transition: all 0.2s;
     text-align: left;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
+    min-width: 140px;
   }
   .map-nav-btn::before {
     content: '';
