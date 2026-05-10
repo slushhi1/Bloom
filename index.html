@@ -447,21 +447,11 @@
     .borders-text { max-width: 600px; }
 
     .map-wrap {
-      flex: 1;
       width: 100%;
-      min-height: 560px;
+      height: 600px;
       border-top: 1px solid var(--border);
       position: relative;
       background: #050210;
-    }
-
-    .map-wrap iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
     }
 
     /* Map fallback (shown if iframe blocked) */
@@ -846,8 +836,7 @@
 <style>
   #bloom-map {
     width: 100%;
-    height: 100%;
-    min-height: 560px;
+    height: 600px;
     background: #06030f;
   }
   .bloom-tooltip {
