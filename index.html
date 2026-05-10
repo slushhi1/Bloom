@@ -171,12 +171,6 @@
     .hero-bottom-content {
       transform: translateY(60px);
       opacity: 0;
-      transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.9s ease;
-    }
-
-    .hero-bottom-content.risen {
-      transform: translateY(0);
-      opacity: 1;
     }
 
     .hero-title {
@@ -993,21 +987,14 @@
 
   /* Hero content rises from bottom on scroll */
   const heroContent = document.getElementById('heroContent');
-  let heroTriggered = false;
+  
   window.addEventListener('scroll', () => {
-    if (!heroTriggered && window.scrollY > 30) {
-      heroContent.classList.add('risen');
-      heroTriggered = true;
-    }
+    const progress = Math.min(window.scrollY / (window.innerHeight * 0.6), 1);
+    const translateY = 60 - (progress * 60);
+    const opacity = progress;
+    heroContent.style.transform = `translateY(${translateY}px)`;
+    heroContent.style.opacity = opacity;
   }, { passive: true });
-
-  // Also trigger after a short delay if user doesn't scroll
-  setTimeout(() => {
-    if (!heroTriggered) {
-      heroContent.classList.add('risen');
-      heroTriggered = true;
-    }
-  }, 1200);
 
   setTimeout(() => { map.invalidateSize(); map.setView(mc(-4150, -6800), -2.5); }, 200);
 </script>
