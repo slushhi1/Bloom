@@ -24,41 +24,27 @@
       --bloom-dark: #1a1427;
       --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
       --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
-      --border-radius: 0px;
-      --border-radius-card: 0px;
     }
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
-      background-color: var(--bloom-dark);
+      background: url('/assets/images/bloom-bg.png') center/cover no-repeat fixed;
       color: #1f1b2c;
       line-height: 1.5;
+      position: relative;
     }
 
-    /* Background image layer */
-    .bg-layer {
+    /* Very subtle overlay for text readability */
+    body::before {
+      content: '';
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url('/assets/images/bloom-bg.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      opacity: 0.25;
-      z-index: -1;
-    }
-
-    /* Dark overlay for better text contrast */
-    .bg-layer::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(26, 20, 39, 0.7), rgba(26, 20, 39, 0.5));
+      background: rgba(0, 0, 0, 0.25);
+      z-index: 0;
+      pointer-events: none;
     }
 
     .wrapper {
@@ -72,9 +58,9 @@
       padding: 0 2rem;
     }
 
-    /* Header - geometric, sharp */
+    /* Header */
     .header {
-      background: rgba(26, 20, 39, 0.92);
+      background: rgba(26, 20, 39, 0.85);
       backdrop-filter: blur(8px);
       border-bottom: 2px solid var(--bloom-gold);
       position: sticky;
@@ -103,7 +89,6 @@
       font-size: 1.8rem;
     }
 
-    /* Discord button - sharp rectangle */
     .discord-link {
       background: #5865F2;
       color: white;
@@ -121,9 +106,9 @@
       transform: translateY(-1px);
     }
 
-    /* Desktop Navigation - sharp, minimal */
+    /* Navigation */
     .nav {
-      background: rgba(26, 20, 39, 0.85);
+      background: rgba(26, 20, 39, 0.8);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid rgba(201, 160, 61, 0.2);
     }
@@ -154,7 +139,6 @@
       color: var(--bloom-gold);
     }
 
-    /* Dropdown - sharp edges */
     .dropdown {
       position: absolute;
       top: 100%;
@@ -189,7 +173,7 @@
       color: var(--bloom-gold);
     }
 
-    /* Mobile menu (hidden on desktop) */
+    /* Mobile */
     .mobile-toggle {
       display: none;
       background: none;
@@ -206,7 +190,7 @@
       margin: 5px 0;
     }
 
-    /* Hero - bold, structured */
+    /* Hero */
     .hero {
       padding: 5rem 0 6rem;
       text-align: center;
@@ -218,13 +202,15 @@
       letter-spacing: -1px;
       color: var(--bloom-white);
       margin-bottom: 1rem;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
     }
 
     .hero-subtitle {
       font-size: 1.25rem;
-      color: rgba(255, 255, 255, 0.75);
+      color: rgba(255, 255, 255, 0.9);
       max-width: 600px;
       margin: 0 auto 2rem;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     }
 
     .hero-buttons {
@@ -265,9 +251,10 @@
       background: rgba(255, 255, 255, 0.1);
     }
 
-    /* News ticker - geometric */
+    /* News section */
     .news-section {
-      background: var(--bloom-white);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(4px);
       margin: 2rem 0;
       box-shadow: var(--shadow-md);
       border-left: 4px solid var(--bloom-gold);
@@ -275,7 +262,7 @@
 
     .news-header {
       padding: 1rem 1.5rem;
-      background: var(--bloom-gray);
+      background: rgba(234, 230, 240, 0.9);
       border-bottom: 1px solid #ddd8e8;
     }
 
@@ -311,7 +298,7 @@
       font-size: 0.85rem;
     }
 
-    /* Section titles - sharp, minimal */
+    /* Section titles */
     .section-title {
       font-size: 2rem;
       font-weight: 700;
@@ -319,16 +306,18 @@
       text-align: center;
       margin: 3rem 0 0.5rem;
       letter-spacing: -0.3px;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
     }
 
     .section-intro {
       text-align: center;
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255, 255, 255, 0.85);
       max-width: 650px;
       margin: 0 auto 2.5rem;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     }
 
-    /* Card grid - sharp rectangles, no rounding */
+    /* Cards */
     .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -337,18 +326,18 @@
     }
 
     .card {
-      background: rgba(26, 20, 39, 0.85);
-      backdrop-filter: blur(4px);
+      background: rgba(26, 20, 39, 0.7);
+      backdrop-filter: blur(8px);
       padding: 2rem;
       transition: all 0.25s;
       text-decoration: none;
       color: inherit;
       display: block;
-      border: 1px solid rgba(201, 160, 61, 0.2);
+      border: 1px solid rgba(201, 160, 61, 0.3);
     }
 
     .card:hover {
-      background: rgba(26, 20, 39, 0.95);
+      background: rgba(26, 20, 39, 0.85);
       transform: translateY(-4px);
       border-color: var(--bloom-gold);
     }
@@ -366,7 +355,7 @@
     }
 
     .card p {
-      color: rgba(255, 255, 255, 0.65);
+      color: rgba(255, 255, 255, 0.7);
       margin-bottom: 1rem;
       font-size: 0.9rem;
       line-height: 1.5;
@@ -379,9 +368,10 @@
       letter-spacing: 0.5px;
     }
 
-    /* CTA section - geometric, bold */
+    /* CTA */
     .cta {
-      background: var(--bloom-purple);
+      background: rgba(61, 43, 90, 0.85);
+      backdrop-filter: blur(8px);
       margin: 3rem 0;
       padding: 3rem 2rem;
       text-align: center;
@@ -395,7 +385,7 @@
     }
 
     .cta p {
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255, 255, 255, 0.85);
       max-width: 500px;
       margin: 0 auto 1.5rem;
     }
@@ -404,13 +394,14 @@
     .footer {
       text-align: center;
       padding: 2rem;
-      color: rgba(255, 255, 255, 0.5);
-      border-top: 1px solid rgba(201, 160, 61, 0.2);
+      color: rgba(255, 255, 255, 0.7);
+      border-top: 1px solid rgba(201, 160, 61, 0.3);
       font-size: 0.85rem;
       margin-top: 2rem;
+      background: rgba(0, 0, 0, 0.2);
     }
 
-    /* Mobile responsive */
+    /* Responsive */
     @media (max-width: 768px) {
       .nav-list {
         display: none;
@@ -439,7 +430,7 @@
       }
     }
 
-    /* Mobile slide menu */
+    /* Mobile menu */
     .mobile-menu {
       position: fixed;
       top: 0;
@@ -507,8 +498,6 @@
   </style>
 </head>
 <body>
-
-<div class="bg-layer"></div>
 
 <div class="wrapper">
   <header class="header">
