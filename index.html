@@ -724,6 +724,9 @@
   </div>
 </section>
 
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+
 <!-- ══════════════════════════════════════
      4 — BORDERS & MAP
 ══════════════════════════════════════ -->
@@ -740,19 +743,8 @@
       </div>
     </div>
 
-    <div class="map-wrap" id="mapWrap">
-      <iframe
-        id="civmapFrame"
-        src="https://slushhi1.github.io/civmc-map.github.io/"
-        title="CivMC Interactive Map"
-        allowfullscreen
-        loading="lazy"
-      ></iframe>
-      <!-- Fallback shown if iframe is blocked -->
-      <div class="map-fallback" id="mapFallback">
-        <p>The interactive map could not be embedded directly.<br>Open it in a new tab to explore Bloom's territory.</p>
-        <a href="https://civmc-map.github.io/" target="_blank">Open Interactive Map &rarr;</a>
-      </div>
+    <div class="map-wrap">
+      <div id="bloom-map"></div>
     </div>
   </div>
 </section>
@@ -762,6 +754,7 @@
   <span class="footer-copy">REPUBLIC OF BLOOM &nbsp;&middot;&nbsp; CIVMC</span>
 </footer>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
   /* Mobile drawer */
   const toggle  = document.getElementById('navToggle');
@@ -783,17 +776,92 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  /* Map iframe fallback — detect if blocked */
-  const frame    = document.getElementById('civmapFrame');
-  const fallback = document.getElementById('mapFallback');
-  const mapWrap  = document.getElementById('mapWrap');
+  /* ── LEAFLET MAP ── */
+  // Convert Minecraft [x, z] to Leaflet [lat, lng]
+  // Negate z so north (negative MC z) appears at top
+  function mc(x, z) { return [-z, x]; }
 
-  frame.addEventListener('error', showFallback);
+  const map = L.map('bloom-map', {
+    crs: L.CRS.Simple,
+    minZoom: -5,
+    maxZoom: 0,
+    zoomSnap: 0.5,
+    zoomDelta: 0.5,
+    attributionControl: false
+  });
 
-  function showFallback() {
-    frame.style.display = 'none';
-    fallback.style.display = 'flex';
-  }
+  // CivMC terrain tiles
+  const CivTiles = L.TileLayer.extend({
+    getTileUrl: function(coords) {
+      return `https://civmc-map.duckdns.org/tiles/terrain/z${coords.z}/${coords.x},${coords.y}.png`;
+    }
+  });
+  new CivTiles('', {
+    minZoom: -5, maxZoom: 0,
+    tileSize: 256, noWrap: true,
+    errorTileUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
+  }).addTo(map);
+
+  // Set view centered on Bloom: x=-4150, z=-5800, radius~2500
+  map.setView(mc(-4150, -5800), -2);
+
+  // Bloom marker (placeholder until polygon coords are added)
+  const bloomIcon = L.divIcon({
+    className: '',
+    html: `<div style="
+      width: 12px; height: 12px;
+      background: #7040b0;
+      border: 2px solid #d8d5de;
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(112,64,176,0.8);
+    "></div>`,
+    iconSize: [12, 12],
+    iconAnchor: [6, 6]
+  });
+
+  L.marker(mc(-4150, -5800), { icon: bloomIcon })
+    .addTo(map)
+    .bindTooltip('Republic of Bloom', {
+      permanent: true,
+      direction: 'top',
+      offset: [0, -10],
+      className: 'bloom-tooltip'
+    });
+
+  // ── ADD BLOOM POLYGON HERE WHEN YOU HAVE COORDINATES ──
+  // Example format (replace with real coords):
+  // const bloomBorders = [
+  //   [x1, z1], [x2, z2], [x3, z3], ...
+  // ];
+  // L.polygon(bloomBorders.map(([x,z]) => mc(x,z)), {
+  //   color: '#7040b0',
+  //   weight: 2,
+  //   fillColor: '#7040b0',
+  //   fillOpacity: 0.2
+  // }).addTo(map);
+
+  L.control.attribution({ prefix: '<a href="https://civmc-map.github.io" target="_blank">CivMC Map</a>' }).addTo(map);
 </script>
+
+<style>
+  #bloom-map {
+    width: 100%;
+    height: 100%;
+    min-height: 560px;
+    background: #06030f;
+  }
+  .bloom-tooltip {
+    background: rgba(10, 5, 22, 0.88);
+    border: 1px solid rgba(112, 64, 176, 0.4);
+    color: #d8d5de;
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.14em;
+    padding: 4px 10px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .bloom-tooltip::before { display: none; }
+</style>
 </body>
 </html>
