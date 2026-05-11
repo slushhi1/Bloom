@@ -32,60 +32,136 @@
     }
 
     /* ─── HEADER ─── */
-    header {
+            header {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 200;
-      background: rgba(13, 5, 32, 0.9);
+      background: rgba(13, 5, 32, 0.92);
       backdrop-filter: blur(22px);
       -webkit-backdrop-filter: blur(22px);
       border-bottom: 1px solid var(--border);
+      height: 68px;
     }
 
     .header-inner {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 2.5rem;
+      padding: 0 2rem;
       display: flex;
       align-items: center;
-      height: 72px;
-      gap: 1.5rem;
+      height: 68px;
+      gap: 0;
     }
 
-    .flag-stripe { display: flex; gap: 3px; align-items: center; flex-shrink: 0; }
-    .flag-stripe span { display: block; width: 5px; height: 30px; }
+    .flag-stripe { display: flex; gap: 3px; align-items: center; flex-shrink: 0; margin-right: 1rem; }
+    .flag-stripe span { display: block; width: 4px; height: 24px; }
     .flag-stripe .s1 { background: var(--purple-rich); }
     .flag-stripe .s2 { background: #eeecf3; }
     .flag-stripe .s3 { background: #555; }
 
     .site-title {
       font-family: 'Cinzel', serif;
-      font-size: 0.82rem;
-      letter-spacing: 0.24em;
+      font-size: 0.85rem;
+      letter-spacing: 0.28em;
       color: var(--chrome-light);
       text-decoration: none;
       white-space: nowrap;
+      margin-right: 0;
     }
 
-    .header-nav { display: flex; list-style: none; margin-left: auto; }
+    /* Main nav */
+    .header-nav { display: flex; list-style: none; align-items: stretch; height: 68px; margin-left: auto; }
 
-    .header-nav a {
-      display: block;
-      padding: 0 1.05rem;
-      height: 72px;
-      line-height: 72px;
+    .header-nav > li { display: flex; align-items: stretch; position: relative; }
+
+    .header-nav > li > a,
+    .header-nav > li > button {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0 1rem;
       font-family: 'Cinzel', serif;
-      font-size: 0.68rem;
-      letter-spacing: 0.12em;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
       color: var(--chrome-light);
       text-decoration: none;
       border-bottom: 2px solid transparent;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      cursor: pointer;
+      white-space: nowrap;
       transition: color 0.2s, border-color 0.2s, background 0.2s;
+      height: 100%;
     }
-    .header-nav a:hover {
+
+    .header-nav > li > a:hover,
+    .header-nav > li > button:hover,
+    .header-nav > li.open > button,
+    .header-nav > li > a.active {
       color: var(--white);
       border-bottom-color: var(--purple-rich);
       background: rgba(112, 64, 176, 0.09);
+    }
+
+    .header-nav > li > button svg {
+      width: 7px; height: 7px;
+      fill: currentColor;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .header-nav > li.open > button svg { transform: rotate(180deg); }
+
+    /* Dropdown menus */
+    .nav-dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: rgba(13, 5, 32, 0.97);
+      backdrop-filter: blur(22px);
+      border: 1px solid var(--border);
+      border-top: none;
+      min-width: 200px;
+      display: none;
+      z-index: 400;
+      flex-direction: column;
+    }
+    .header-nav > li.open .nav-dropdown-menu { display: flex; }
+
+    .nav-dropdown-menu a {
+      display: block;
+      padding: 0.85rem 1.25rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.56rem;
+      letter-spacing: 0.14em;
+      color: var(--chrome-light);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-dropdown-menu a:last-child { border-bottom: none; }
+    .nav-dropdown-menu a:hover { color: var(--white); background: rgba(112, 64, 176, 0.12); }
+    .nav-dropdown-menu .menu-desc {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.82rem;
+      color: var(--gray-light);
+      font-style: italic;
+      display: block;
+      margin-top: 0.15rem;
+    }
+
+    /* Discord pill */
+    .discord-pill { margin-left: 0.5rem; display:flex; align-items:center; gap:0.45rem; padding:0.38rem 0.9rem; background:rgba(88,101,242,0.14); border:1px solid rgba(88,101,242,0.32); text-decoration:none; font-family:'Cinzel',serif; font-size:0.51rem; letter-spacing:0.17em; color:#a0aaee; white-space:nowrap; transition:all 0.2s; flex-shrink:0; margin-left:1.25rem; }
+    .discord-pill:hover { background:rgba(88,101,242,0.28); border-color:rgba(88,101,242,0.6); color:#c8d0ff; }
+    .discord-pill svg { width:12px; height:12px; fill:currentColor; }
+
+    .nav-toggle { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; margin-left:auto; }
+    .nav-toggle span { display:block; width:20px; height:1.5px; background:var(--gray-light); }
+
+    @media (max-width:960px) {
+      .header-nav, .discord-pill { display:none; }
+      .nav-toggle { display:flex; }
     }
 
     /* Additional Resources dropdown */
@@ -96,7 +172,7 @@
       align-items: center;
       gap: 0.4rem;
       padding: 0 1.05rem;
-      height: 72px;
+      height: 56px;
       font-family: 'Cinzel', serif;
       font-size: 0.68rem;
       letter-spacing: 0.12em;
@@ -249,8 +325,9 @@
       background-attachment: scroll;
       background-size: cover;
       background-position: center;
-      align-items: flex-end;
-      padding: 0 2rem 5rem;
+      align-items: flex-end !important;
+      justify-content: center;
+      padding: 0 2rem 4rem;
       text-align: center;
     }
 
@@ -334,7 +411,7 @@
     .panel-nation {
       background: rgba(6, 3, 16, 0.97);
       min-height: unset;
-      padding: 5rem 2.5rem;
+      padding: 2.5rem 2.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -639,6 +716,120 @@
       color: var(--white);
     }
 
+    /* ─── ANNOUNCEMENTS ─── */
+    .announcement-item {
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+    }
+    .announcement-item:last-child { border-bottom: none; }
+    .announcement-meta {
+      font-family: 'Cinzel', serif;
+      font-size: 0.46rem;
+      letter-spacing: 0.22em;
+      color: var(--purple-rich);
+      margin-bottom: 0.4rem;
+    }
+    .announcement-text {
+      font-family: 'EB Garamond', serif;
+      font-size: 1rem;
+      color: var(--gray-light);
+      line-height: 1.8;
+    }
+
+    /* ─── PAGE CARDS ─── */
+    .panel-cards {
+      background: url('/Bloom/assets/images/bloom-bg.png') center / cover no-repeat;
+      padding: 2.5rem 2.5rem 3rem;
+      border-top: 1px solid var(--border);
+      position: relative;
+    }
+
+    .panel-cards::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(8, 4, 20, 0.55);
+    }
+
+    .cards-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-card {
+      background: rgba(14, 7, 30, 0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .page-card:hover {
+      background: rgba(20, 10, 40, 0.72);
+      border-color: rgba(112, 64, 176, 0.5);
+    }
+
+    .page-card-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.46rem;
+      letter-spacing: 0.36em;
+      color: var(--purple-rich);
+    }
+
+    .page-card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--chrome-light);
+    }
+
+    .page-card-body {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.95rem;
+      color: var(--gray-light);
+      line-height: 1.72;
+      flex: 1;
+    }
+
+    .page-card-link {
+      font-family: 'Cinzel', serif;
+      font-size: 0.48rem;
+      letter-spacing: 0.18em;
+      color: var(--purple-rich);
+      text-decoration: none;
+      margin-top: 0.25rem;
+      transition: color 0.2s;
+      align-self: flex-start;
+    }
+    .page-card-link:hover { color: var(--white); }
+
+    /* ─── FOOTER ─── */
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--chrome-light);
+      text-decoration: none;
+      opacity: 0.7;
+      animation: bobDown 1.6s ease-in-out infinite;
+      transition: opacity 0.2s;
+    }
+    .scroll-arrow:hover { opacity: 1; }
+    .scroll-arrow svg { width: 64px; height: 18px; }
+    @keyframes bobDown {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
     /* ─── FOOTER ─── */
     footer {
       background: rgba(13, 5, 32, 0.98);
@@ -671,11 +862,12 @@
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 940px) {
-      .header-nav { display: none; }
+      .header-nav { justify-content: center; display: none; }
       .discord-pill { display: none; }
       .nav-toggle { display: flex; }
       .gov-pillars { grid-template-columns: 1fr; }
       .gov-rights-grid { grid-template-columns: 1fr; }
+      .cards-inner { grid-template-columns: 1fr; }
     }
     @media (max-width: 700px) {
       .content-box { padding: 2rem 1.5rem; width: calc(100% - 2.5rem); }
@@ -728,7 +920,6 @@
 </head>
 <body>
 
-<!-- ─── HEADER ─── -->
 <header>
   <div class="header-inner">
     <div class="flag-stripe" aria-hidden="true">
@@ -737,18 +928,22 @@
     <a href="index.html" class="site-title">BLOOM</a>
     <ul class="header-nav">
       <li><a href="join.html">Residency</a></li>
-      <li><a href="guide.html">New Player Guide</a></li>
-      <li><a href="government.html">Government</a></li>
-      <li class="nav-dropdown" id="resourcesDropdown">
-        <button class="nav-dropdown-btn" id="resourcesBtn">
-          Additional Resources
-          <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg>
-        </button>
+      <li class="nav-has-dropdown" id="dd-about">
+        <button>About Bloom <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg></button>
         <div class="nav-dropdown-menu">
-          <a href="rails.html">Rails</a>
-          <a href="farms.html">Farms</a>
-          <a href="craigslist.html">☮ Craigslist</a>
-          <a href="borders.html">Borders</a>
+          <a href="join.html">Residency<span class="menu-desc">How to join Bloom</span></a>
+          <a href="guide.html">New Player Guide<span class="menu-desc">Getting started in Bloom</span></a>
+          <a href="government.html">Government<span class="menu-desc">Congress, laws & constitution</span></a>
+          <a href="rails.html">Rails<span class="menu-desc">Stations, routes & trip planner</span></a>
+          <a href="borders.html">Borders<span class="menu-desc">Interactive territory map</span></a>
+        </div>
+      </li>
+      <li class="nav-has-dropdown" id="dd-community">
+        <button>Community <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="guide.html">New Player Guide<span class="menu-desc">Getting started in Bloom</span></a>
+          <a href="craigslist.html">☮ Craigslist<span class="menu-desc">Jobs & property listings</span></a>
+          <a href="farms.html">Farms<span class="menu-desc">Public farms & XP production</span></a>
         </div>
       </li>
     </ul>
@@ -756,9 +951,7 @@
       <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
       DISCORD
     </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
   </div>
 </header>
 
@@ -766,15 +959,14 @@
 <div class="drawer-overlay" id="drawerOverlay"></div>
 <div class="drawer" id="drawer">
   <button class="drawer-close" id="drawerClose">&#x2715;</button>
-  <ul>
+      <ul>
     <li><a href="join.html">Residency</a></li>
     <li><a href="guide.html">New Player Guide</a></li>
     <li><a href="government.html">Government</a></li>
-    <li><a href="resources.html#rails">Rails</a></li>
-    <li><a href="resources.html#farms">Farms</a></li>
-    <li><a href="resources.html#jobs">Jobs</a></li>
-    <li><a href="resources.html#properties">Properties</a></li>
-    <li><a href="#borders">Borders</a></li>
+    <li><a href="rails.html">Rails</a></li>
+    <li><a href="borders.html">Borders</a></li>
+    <li><a href="craigslist.html">☮ Craigslist</a></li>
+    <li><a href="farms.html">Farms</a></li>
     <li><a href="https://discord.gg/aV6VM32EZR" target="_blank" style="color:#a0aaee;">Join Discord</a></li>
   </ul>
 </div>
@@ -786,24 +978,69 @@
   <div>
     <h1 class="hero-title">Welcome to Bloom</h1>
     <div class="hero-rule"><div class="rule-diamond"></div></div>
-    <div class="portals">
-      <a href="join.html" class="portal-btn"><span class="portal-label">Residency</span></a>
-      <a href="#nation" class="portal-btn"><span class="portal-label">Info</span></a>
+    <a href="#nation" class="scroll-arrow" aria-label="Scroll down">
+      <svg viewBox="0 0 60 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 2L30 14L58 2" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     2 — PAGE CARDS
+══════════════════════════════════════ -->
+<section class="panel-cards">
+  <div class="cards-inner">
+    <div class="page-card reveal">
+      <span class="page-card-tag">Citizenship</span>
+      <h3 class="page-card-title">Residency</h3>
+      <p class="page-card-body">Join the Republic of Bloom. Learn how residency works, what rights each citizenship tier grants, and how to get started.</p>
+      <a href="join.html" class="page-card-link">Learn More &rarr;</a>
+    </div>
+    <div class="page-card reveal reveal-d1">
+      <span class="page-card-tag">Governance</span>
+      <h3 class="page-card-title">Government</h3>
+      <p class="page-card-body">Bloom is a democracy. Read about Congress, the Speaker, the President, cabinet secretaries, recently passed laws, and the full constitution.</p>
+      <a href="government.html" class="page-card-link">Learn More &rarr;</a>
+    </div>
+    <div class="page-card reveal reveal-d2">
+      <span class="page-card-tag">Infrastructure</span>
+      <h3 class="page-card-title">Rails</h3>
+      <p class="page-card-body">Plan a trip, browse international and internal rail connections, learn how Bloom's overland and underground stations work, or apply to work for BRC.</p>
+      <a href="rails.html" class="page-card-link">View Rails &rarr;</a>
+    </div>
+    <div class="page-card reveal reveal-d1">
+      <span class="page-card-tag">Territory</span>
+      <h3 class="page-card-title">Borders</h3>
+      <p class="page-card-body">Explore Bloom's territory and surrounding nations on the interactive CivMC map. Toggle the claims overlay and navigate between Bloom's mainland and Cane Corp.</p>
+      <a href="borders.html" class="page-card-link">Open Map &rarr;</a>
+    </div>
+    <div class="page-card reveal reveal-d2">
+      <span class="page-card-tag">Economy</span>
+      <h3 class="page-card-title">Craigslist</h3>
+      <p class="page-card-body">Browse job listings and property posts from Bloom citizens. Post your own listing through the Bloom Discord jobs and properties channels.</p>
+      <a href="craigslist.html" class="page-card-link">Browse Listings &rarr;</a>
+    </div>
+    <div class="page-card reveal reveal-d1">
+      <span class="page-card-tag">Resources</span>
+      <h3 class="page-card-title">Farms</h3>
+      <p class="page-card-body">Bloom operates state-owned public farms available to residents and citizens. XP production, crops, and more — managed by the Secretary of Agriculture.</p>
+      <a href="farms.html" class="page-card-link">View Farms &rarr;</a>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════
-     2 — OUR NATION
+     3 — ANNOUNCEMENTS
 ══════════════════════════════════════ -->
 <section id="nation" class="panel panel-nation">
   <div class="content-box reveal">
-    <span class="sec-tag">Our Nation</span>
-    <h2 class="sec-title">About Us</h2>
+    <span class="sec-tag">From Discord</span>
+    <h2 class="sec-title">Announcements</h2>
     <div class="sec-rule"></div>
-    <p class="sec-body">
-      The Republic of Bloom is a longstanding buildfriend democracy on CivMC. Our capital city is themed after Naboo from the Star Wars prequel trilogy. Government is handled by an elected Congress of five to seven members, with two-month terms and in-game elections conducted via signed books at the Capitol Building. Bloom has an active job market and ongoing construction projects for citizens looking to earn income.
-    </p>
+    <div id="announcements-feed">
+      <p class="sec-body" style="font-style:italic;">Loading announcements...</p>
+    </div>
   </div>
 </section>
 
@@ -835,15 +1072,44 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  /* Resources dropdown */
-  const resourcesDropdown = document.getElementById('resourcesDropdown');
-  const resourcesBtn = document.getElementById('resourcesBtn');
-  resourcesBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    resourcesDropdown.classList.toggle('open');
+  /* Announcements feed */
+  const GIST_ID = 'c0e6631773692d0c353929162506b70d';
+  async function loadAnnouncements() {
+    const feed = document.getElementById('announcements-feed');
+    try {
+      const res = await fetch(`https://api.github.com/gists/${GIST_ID}`);
+      const gist = await res.json();
+      const data = JSON.parse(gist.files['bloom-data.json'].content);
+      const posts = (data.messages || []).filter(m => m.channel === 'announcements').slice(0, 5);
+      if (posts.length === 0) {
+        feed.innerHTML = '<p class="sec-body" style="font-style:italic;">No announcements yet.</p>';
+        return;
+      }
+      feed.innerHTML = posts.map(p => {
+        const date = new Date(p.timestamp).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        return `<div class="announcement-item">
+          <div class="announcement-meta">${date} &nbsp;&middot;&nbsp; ${p.display_name || p.author}</div>
+          <p class="announcement-text">${p.content}</p>
+        </div>`;
+      }).join('');
+    } catch(e) {
+      feed.innerHTML = '<p class="sec-body" style="font-style:italic;">Could not load announcements.</p>';
+    }
+  }
+  loadAnnouncements();
+
+  /* Dropdown nav */
+  document.querySelectorAll('.nav-has-dropdown').forEach(li => {
+    const btn = li.querySelector('button');
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const wasOpen = li.classList.contains('open');
+      document.querySelectorAll('.nav-has-dropdown').forEach(x => x.classList.remove('open'));
+      if (!wasOpen) li.classList.add('open');
+    });
   });
   document.addEventListener('click', () => {
-    resourcesDropdown.classList.remove('open');
+    document.querySelectorAll('.nav-has-dropdown').forEach(x => x.classList.remove('open'));
   });
 </script>
 </body>
