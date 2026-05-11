@@ -28,7 +28,7 @@
       font-family: 'Jost', sans-serif;
       color: var(--white);
       overflow-x: hidden;
-      background: #05020c;
+      background: #0d0520;
     }
 
     /* ─── HEADER ─── */
@@ -36,7 +36,7 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 200;
-      background: rgba(7, 3, 16, 0.9);
+      background: rgba(13, 5, 32, 0.9);
       backdrop-filter: blur(22px);
       -webkit-backdrop-filter: blur(22px);
       border-bottom: 1px solid var(--border);
@@ -130,27 +130,50 @@
       -webkit-backdrop-filter: blur(22px);
       border: 1px solid var(--border);
       border-top: none;
-      min-width: 210px;
+      width: 520px;
       display: none;
       z-index: 300;
+      padding: 0.5rem 0;
     }
     .nav-dropdown.open .nav-dropdown-menu { display: block; }
 
-    .nav-dropdown-menu a {
+    .nav-dropdown-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      margin: 0.5rem;
+    }
+
+    .nav-dropdown-item {
+      background: rgba(14, 7, 30, 0.9);
+      padding: 1.1rem 1.25rem;
+      text-decoration: none;
       display: block;
-      padding: 0.9rem 1.25rem;
+      transition: background 0.2s;
+      border: none;
+    }
+    .nav-dropdown-item:hover {
+      background: rgba(112, 64, 176, 0.18);
+    }
+
+    .nav-dropdown-item-title {
       font-family: 'Cinzel', serif;
-      font-size: 0.63rem;
+      font-size: 0.62rem;
       letter-spacing: 0.12em;
       color: var(--chrome-light);
-      text-decoration: none;
-      border-bottom: 1px solid var(--border);
-      transition: color 0.2s, background 0.2s;
+      display: block;
+      margin-bottom: 0.35rem;
+      transition: color 0.2s;
     }
-    .nav-dropdown-menu a:last-child { border-bottom: none; }
-    .nav-dropdown-menu a:hover {
-      color: var(--white);
-      background: rgba(112, 64, 176, 0.12);
+    .nav-dropdown-item:hover .nav-dropdown-item-title { color: var(--white); }
+
+    .nav-dropdown-item-desc {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.88rem;
+      color: var(--gray-light);
+      font-style: italic;
+      line-height: 1.5;
     }
 
     .discord-pill {
@@ -551,7 +574,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      background: #05020c;
+      background: #0d0520;
     }
 
     .borders-top {
@@ -619,7 +642,7 @@
 
     /* ─── FOOTER ─── */
     footer {
-      background: rgba(4, 2, 10, 0.98);
+      background: rgba(13, 5, 32, 0.98);
       border-top: 1px solid var(--border);
       padding: 1.2rem 2.5rem;
       text-align: center;
@@ -714,7 +737,7 @@
     </div>
     <a href="index.html" class="site-title">BLOOM</a>
     <ul class="header-nav">
-      <li><a href="join.html">Join Bloom</a></li>
+      <li><a href="join.html">Residency</a></li>
       <li><a href="guide.html">New Player Guide</a></li>
       <li><a href="government.html">Government</a></li>
       <li class="nav-dropdown" id="resourcesDropdown">
@@ -723,11 +746,28 @@
           <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg>
         </button>
         <div class="nav-dropdown-menu">
-          <a href="rails.html">Rails</a>
-          <a href="farms.html">Farms</a>
-          <a href="jobs.html">Jobs</a>
-          <a href="properties.html">Properties</a>
-          <a href="#borders">Borders</a>
+          <div class="nav-dropdown-grid">
+            <a href="rails.html" class="nav-dropdown-item">
+              <span class="nav-dropdown-item-title">Rails</span>
+              <span class="nav-dropdown-item-desc">Bloom's rail network and station connections</span>
+            </a>
+            <a href="farms.html" class="nav-dropdown-item">
+              <span class="nav-dropdown-item-title">Farms</span>
+              <span class="nav-dropdown-item-desc">Public farms, XP production and access tiers</span>
+            </a>
+            <a href="jobs.html" class="nav-dropdown-item">
+              <span class="nav-dropdown-item-title">Jobs</span>
+              <span class="nav-dropdown-item-desc">Available work and construction projects</span>
+            </a>
+            <a href="properties.html" class="nav-dropdown-item">
+              <span class="nav-dropdown-item-title">Properties</span>
+              <span class="nav-dropdown-item-desc">Land claims and property listings</span>
+            </a>
+            <a href="resources.html#borders" class="nav-dropdown-item" style="grid-column: span 2;">
+              <span class="nav-dropdown-item-title">Borders</span>
+              <span class="nav-dropdown-item-desc">Interactive map of Bloom's territory and surrounding nations</span>
+            </a>
+          </div>
         </div>
       </li>
     </ul>
@@ -746,13 +786,13 @@
 <div class="drawer" id="drawer">
   <button class="drawer-close" id="drawerClose">&#x2715;</button>
   <ul>
-    <li><a href="join.html">Join Bloom</a></li>
+    <li><a href="join.html">Residency</a></li>
     <li><a href="guide.html">New Player Guide</a></li>
     <li><a href="government.html">Government</a></li>
-    <li><a href="rails.html">Rails</a></li>
-    <li><a href="farms.html">Farms</a></li>
-    <li><a href="jobs.html">Jobs</a></li>
-    <li><a href="properties.html">Properties</a></li>
+    <li><a href="resources.html#rails">Rails</a></li>
+    <li><a href="resources.html#farms">Farms</a></li>
+    <li><a href="resources.html#jobs">Jobs</a></li>
+    <li><a href="resources.html#properties">Properties</a></li>
     <li><a href="#borders">Borders</a></li>
     <li><a href="https://discord.gg/aV6VM32EZR" target="_blank" style="color:#a0aaee;">Join Discord</a></li>
   </ul>
@@ -766,7 +806,7 @@
     <h1 class="hero-title">Welcome to Bloom</h1>
     <div class="hero-rule"><div class="rule-diamond"></div></div>
     <div class="portals">
-      <a href="join.html" class="portal-btn"><span class="portal-label">Join Bloom</span></a>
+      <a href="join.html" class="portal-btn"><span class="portal-label">Residency</span></a>
       <a href="#nation" class="portal-btn"><span class="portal-label">Info</span></a>
     </div>
   </div>
@@ -786,42 +826,13 @@
   </div>
 </section>
 
-<!-- Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
-
-<!-- ══════════════════════════════════════
-     4 — BORDERS & MAP
-══════════════════════════════════════ -->
-<section id="borders" class="panel-borders">
-  <div class="borders-wrapper">
-    <div class="borders-top">
-      <div class="borders-text reveal">
-        <span class="sec-tag">Territory</span>
-        <h2 class="sec-title">Borders &amp; Cities</h2>
-        <div class="sec-rule"></div>
-        <p class="sec-body">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
-        </p>
-      </div>
-    </div>
-
-    <div class="map-wrap">
-      <div id="bloom-map"></div>
-      <div class="map-nav-btns">
-        <button id="btn-mainland" class="map-nav-btn active">Mainland</button>
-        <button id="btn-cane" class="map-nav-btn">Cane Corp</button>
-      </div>
-      <button id="claims-toggle" class="claims-toggle">Claims: On</button>
-    </div>
-  </div>
-</section>
+<!-- Leaflet CSS is now on resources.html -->
 
 <!-- ─── FOOTER ─── -->
 <footer>
   <span class="footer-copy">REPUBLIC OF BLOOM &nbsp;&middot;&nbsp; CIVMC</span>
 </footer>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
   /* Mobile drawer */
   const toggle  = document.getElementById('navToggle');
@@ -843,127 +854,6 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  /* ── LEAFLET MAP ── */
-  // Convert Minecraft [x, z] to Leaflet [lat, lng]
-  // Negate z so north (negative MC z) appears at top
-  function mc(x, z) { return [-z, x]; }
-
-  const map = L.map('bloom-map', {
-    crs: L.CRS.Simple,
-    minZoom: -5,
-    maxZoom: 0,
-    zoomSnap: 0.5,
-    zoomDelta: 0.5,
-    attributionControl: false
-  });
-
-  // CivMC terrain tiles
-  const CivTiles = L.TileLayer.extend({
-    getTileUrl: function(coords) {
-      return `https://civmc-map.duckdns.org/tiles/terrain/z${coords.z}/${coords.x},${coords.y}.png`;
-    }
-  });
-  new CivTiles('', {
-    minZoom: -5, maxZoom: 0,
-    tileSize: 256, noWrap: true,
-    errorTileUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
-  }).addTo(map);
-
-  // Set view centered on Bloom: x=-4150, z=-5800, radius~2500
-  map.setView(mc(-4150, -6800), -2.5);
-
-  // Bloom marker (placeholder until polygon coords are added)
-  const bloomIcon = L.divIcon({
-    className: '',
-    html: `<div style="
-      width: 12px; height: 12px;
-      background: #7040b0;
-      border: 2px solid #d8d5de;
-      border-radius: 50%;
-      box-shadow: 0 0 8px rgba(112,64,176,0.8);
-    "></div>`,
-    iconSize: [12, 12],
-    iconAnchor: [6, 6]
-  });
-
-  L.marker(mc(-4150, -5800), { icon: bloomIcon })
-    .addTo(map)
-    .bindTooltip('Republic of Bloom', {
-      permanent: true,
-      direction: 'top',
-      offset: [0, -10],
-      className: 'bloom-tooltip'
-    });
-
-  // ── ADD BLOOM POLYGON HERE WHEN YOU HAVE COORDINATES ──
-  // Example format (replace with real coords):
-  // const bloomBorders = [
-  //   [x1, z1], [x2, z2], [x3, z3], ...
-  // ];
-  // L.polygon(bloomBorders.map(([x,z]) => mc(x,z)), {
-  //   color: '#7040b0',
-  //   weight: 2,
-  //   fillColor: '#7040b0',
-  //   fillOpacity: 0.2
-  // }).addTo(map);
-
-  L.control.attribution({ prefix: '<a href="https://civmc-map.github.io" target="_blank">CivMC Map</a>' }).addTo(map);
-
-  // Territory overlay image
-  const territoryBounds = [mc(-10830, -10830), mc(10830, 10830)];
-  const territoryOverlay = L.imageOverlay(
-    'https://slushhi1.github.io/civmc-map.github.io/CivMCMap44Transparent.png',
-    territoryBounds,
-    { opacity: 0.7, interactive: false }
-  );
-
-  // Start with claims on
-  let overlayOn = true;
-  territoryOverlay.addTo(map);
-
-  const toggleBtn = document.getElementById('claims-toggle');
-  toggleBtn.classList.add('active');
-  toggleBtn.textContent = 'Claims: On';
-
-  toggleBtn.addEventListener('click', () => {
-    overlayOn = !overlayOn;
-    if (overlayOn) {
-      territoryOverlay.addTo(map);
-      toggleBtn.classList.add('active');
-      toggleBtn.textContent = 'Claims: On';
-    } else {
-      map.removeLayer(territoryOverlay);
-      toggleBtn.classList.remove('active');
-      toggleBtn.textContent = 'Claims: Off';
-    }
-  });
-
-  // Force map to recalculate size after render
-  // Navigation buttons
-  const btnMainland = document.getElementById('btn-mainland');
-  const btnCane = document.getElementById('btn-cane');
-
-  btnMainland.addEventListener('click', () => {
-    map.flyTo(mc(-4150, -6800), -2.5, { duration: 0.8 });
-    btnMainland.classList.add('active');
-    btnCane.classList.remove('active');
-  });
-
-  btnCane.addEventListener('click', () => {
-    map.flyTo(mc(-3070, -810), -2, { duration: 0.8 });
-    btnCane.classList.add('active');
-    btnMainland.classList.remove('active');
-  });
-
-  /* Crossfade background on scroll */
-  const bgObserver = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('bg-visible');
-      else e.target.classList.remove('bg-visible');
-    });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.panel').forEach(el => bgObserver.observe(el));
-
   /* Resources dropdown */
   const resourcesDropdown = document.getElementById('resourcesDropdown');
   const resourcesBtn = document.getElementById('resourcesBtn');
@@ -974,99 +864,6 @@
   document.addEventListener('click', () => {
     resourcesDropdown.classList.remove('open');
   });
-
-  setTimeout(() => { map.invalidateSize(); map.setView(mc(-4150, -6800), -2.5); }, 200);
 </script>
-
-<style>
-  .map-nav-btns {
-    position: absolute;
-    top: 5rem;
-    left: 1rem;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  .map-nav-btn {
-    background: rgba(10, 5, 22, 0.88);
-    border: 1px solid rgba(112, 64, 176, 0.35);
-    color: #b8b4c2;
-    font-family: 'Cinzel', serif;
-    font-size: 0.6rem;
-    letter-spacing: 0.18em;
-    padding: 0.7rem 1.6rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-align: left;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    min-width: 140px;
-  }
-  .map-nav-btn::before {
-    content: '';
-    display: block;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: rgba(112, 64, 176, 0.4);
-    flex-shrink: 0;
-    transition: background 0.2s;
-  }
-  .map-nav-btn:hover {
-    border-color: rgba(112, 64, 176, 0.7);
-    color: var(--white);
-    background: rgba(112, 64, 176, 0.15);
-  }
-  .map-nav-btn:hover::before {
-    background: var(--purple-rich);
-  }
-  .map-nav-btn.active {
-    border-color: var(--purple-rich);
-    color: var(--white);
-    background: rgba(112, 64, 176, 0.2);
-  }
-  .map-nav-btn.active::before {
-    background: var(--purple-rich);
-    box-shadow: 0 0 6px rgba(112,64,176,0.8);
-  }
-  .claims-toggle {
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    z-index: 1000;
-    background: rgba(10, 5, 22, 0.88);
-    border: 1px solid rgba(112, 64, 176, 0.4);
-    color: #b8b4c2;
-    font-family: 'Cinzel', serif;
-    font-size: 0.52rem;
-    letter-spacing: 0.18em;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .claims-toggle:hover {
-    border-color: var(--purple-rich);
-    color: var(--white);
-  }
-  .claims-toggle.active {
-    background: rgba(112, 64, 176, 0.25);
-    border-color: var(--purple-rich);
-    color: var(--white);
-  }
-  .bloom-tooltip {
-    background: rgba(10, 5, 22, 0.88);
-    border: 1px solid rgba(112, 64, 176, 0.4);
-    color: #d8d5de;
-    font-family: 'Cinzel', serif;
-    font-size: 0.55rem;
-    letter-spacing: 0.14em;
-    padding: 4px 10px;
-    border-radius: 0;
-    box-shadow: none;
-  }
-  .bloom-tooltip::before { display: none; }
-</style>
 </body>
 </html>
