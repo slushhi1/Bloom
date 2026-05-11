@@ -705,9 +705,11 @@
         const previewUrl = bill.link ? bill.link.replace('/edit', '/preview').replace('/view', '/preview') : null;
         return `
           <div style="background:rgba(14,7,30,0.82); padding:1.25rem 1.5rem;">
-            <div style="display:flex; align-items:baseline; justify-content:space-between; gap:1rem; margin-bottom:0.85rem;">
-              <div style="font-family:'Cinzel',serif; font-size:0.78rem; color:var(--chrome-light); letter-spacing:0.08em;">${bill.title || 'Untitled Bill'}</div>
-              <div style="font-family:'Cinzel',serif; font-size:0.6rem; letter-spacing:0.18em; color:var(--purple-rich); white-space:nowrap;">${bill.date_passed || ''}</div>
+            <div style="margin-bottom:0.5rem;">
+              <div style="font-family:'Cinzel',serif; font-size:0.85rem; color:var(--chrome-light); letter-spacing:0.08em; margin-bottom:0.4rem;">${bill.title || 'Untitled Bill'}</div>
+              <div style="font-family:'EB Garamond',serif; font-size:0.95rem; color:var(--gray-light);">
+                ${bill.bill_author ? `Author: ${bill.bill_author}` : ''}${bill.bill_author && bill.date_passed ? ' &nbsp;&middot;&nbsp; ' : ''}${bill.date_passed ? `Date passed: ${bill.date_passed}` : ''}
+              </div>
             </div>
             ${previewUrl ? `<iframe src="${previewUrl}" style="width:100%; height:180px; border:none; display:block; background:#fff; pointer-events:none;" loading="lazy"></iframe>` : ''}
             <div style="margin-top:0.65rem;">
