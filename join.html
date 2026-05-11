@@ -28,7 +28,7 @@
       font-family: 'Jost', sans-serif;
       color: var(--white);
       overflow-x: hidden;
-      background: #05020c;
+      background: #0d0520;
     }
 
     /* ─── HEADER ─── */
@@ -36,7 +36,7 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 200;
-      background: rgba(7, 3, 16, 0.9);
+      background: rgba(13, 5, 32, 0.9);
       backdrop-filter: blur(22px);
       -webkit-backdrop-filter: blur(22px);
       border-bottom: 1px solid var(--border);
@@ -175,12 +175,12 @@
     /* ─── HERO ─── */
     .page-hero {
       margin-top: 72px;
-      min-height: 55vh;
+      min-height: calc(100vh - 72px);
       position: relative;
       overflow: hidden;
       display: flex;
       align-items: flex-end;
-      padding: 5rem 2.5rem 3.5rem;
+      padding: 0 2.5rem 4rem;
       border-bottom: 1px solid var(--border);
     }
 
@@ -188,10 +188,10 @@
       position: absolute;
       inset: 0;
       background-image: url('/Bloom/assets/images/bloom-bg3.png');
-      background-size: cover;
-      background-position: center;
-      filter: blur(0px) brightness(0.45);
-      transform: scale(1.03);
+      background-size: contain;
+      background-position: center top;
+      background-repeat: no-repeat;
+      background-color: #0d0520;
       z-index: 0;
     }
 
@@ -199,7 +199,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(5,2,12,0.3) 0%, rgba(5,2,12,0.1) 50%, rgba(5,2,12,0.7) 100%);
+      background: linear-gradient(to left, rgba(5,2,12,0.92) 0%, rgba(5,2,12,0.75) 40%, rgba(5,2,12,0.1) 100%);
     }
 
     .page-hero-content {
@@ -208,6 +208,8 @@
       max-width: 1100px;
       margin: 0 auto;
       width: 100%;
+      display: flex;
+      justify-content: flex-end;
     }
 
     .page-eyebrow {
@@ -406,7 +408,7 @@
 
     /* ─── FOOTER ─── */
     footer {
-      background: rgba(4, 2, 10, 0.98);
+      background: rgba(13, 5, 32, 0.98);
       border-top: 1px solid var(--border);
       padding: 1.2rem 2.5rem;
       text-align: center;
@@ -487,17 +489,34 @@
       <li><a href="join.html" class="active">Residency</a></li>
       <li><a href="guide.html">New Player Guide</a></li>
       <li><a href="government.html">Government</a></li>
-      <li class="nav-dropdown" id="resourcesDropdown">
+            <li class="nav-dropdown" id="resourcesDropdown">
         <button class="nav-dropdown-btn" id="resourcesBtn">
           Additional Resources
           <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg>
         </button>
         <div class="nav-dropdown-menu">
-          <a href="rails.html">Rails</a>
-          <a href="farms.html">Farms</a>
-          <a href="jobs.html">Jobs</a>
-          <a href="properties.html">Properties</a>
-          <a href="index.html#borders">Borders</a>
+          <div class="nav-dropdown-grid">
+            <a href="rails.html" class="nav-dropdown-item">
+              <span class="nav-dropdown-item-title">Rails</span>
+              <span class="nav-dropdown-item-desc">Bloom's rail network and station connections</span>
+            </a>
+            <a href="farms.html" class="nav-dropdown-item">
+              <span class="nav-dropdown-item-title">Farms</span>
+              <span class="nav-dropdown-item-desc">Public farms, XP production and access tiers</span>
+            </a>
+            <a href="jobs.html" class="nav-dropdown-item">
+              <span class="nav-dropdown-item-title">Jobs</span>
+              <span class="nav-dropdown-item-desc">Available work and construction projects</span>
+            </a>
+            <a href="properties.html" class="nav-dropdown-item">
+              <span class="nav-dropdown-item-title">Properties</span>
+              <span class="nav-dropdown-item-desc">Land claims and property listings</span>
+            </a>
+            <a href="resources.html#borders" class="nav-dropdown-item" style="grid-column: span 2;">
+              <span class="nav-dropdown-item-title">Borders</span>
+              <span class="nav-dropdown-item-desc">Interactive map of Bloom's territory and surrounding nations</span>
+            </a>
+          </div>
         </div>
       </li>
     </ul>
@@ -519,11 +538,11 @@
     <li><a href="join.html">Residency</a></li>
     <li><a href="guide.html">New Player Guide</a></li>
     <li><a href="government.html">Government</a></li>
-    <li><a href="rails.html">Rails</a></li>
-    <li><a href="farms.html">Farms</a></li>
-    <li><a href="jobs.html">Jobs</a></li>
-    <li><a href="properties.html">Properties</a></li>
-    <li><a href="index.html#borders">Borders</a></li>
+    <li><a href="resources.html#rails">Rails</a></li>
+    <li><a href="resources.html#farms">Farms</a></li>
+    <li><a href="resources.html#jobs">Jobs</a></li>
+    <li><a href="resources.html#properties">Properties</a></li>
+    <li><a href="resources.html#borders">Borders</a></li>
     <li><a href="https://discord.gg/aV6VM32EZR" target="_blank" style="color:#a0aaee;">Join Discord</a></li>
   </ul>
 </div>
@@ -532,81 +551,51 @@
 <div class="page-hero">
   <div class="page-hero-bg"></div>
   <div class="page-hero-content">
-    <span class="page-eyebrow">Citizenship</span>
-    <h1 class="page-title">Residency in Bloom</h1>
-    <div class="page-rule"></div>
+    <div style="max-width:420px;">
+      <span class="page-eyebrow">Citizenship</span>
+      <h1 class="page-title">How to Join Bloom</h1>
+      <div class="page-rule" style="margin-bottom:2rem;"></div>
+      <div style="background:rgba(10,5,22,0.45); backdrop-filter:blur(8px); border:1px solid var(--border); padding:2rem 2.5rem;">
+        <p style="font-family:'EB Garamond',serif; font-size:1.05rem; color:var(--gray-light); line-height:1.9; margin-bottom:1.5rem;">
+          Residency may be granted by the Speaker, the President, any Congress member, or a Secretary. Join our Discord and introduce yourself to get started.
+        </p>
+        <p style="font-family:'EB Garamond',serif; font-size:1.05rem; color:var(--gray-light); line-height:1.9; margin-bottom:0.5rem;">01 &nbsp;&mdash;&nbsp; Join the Bloom Discord and introduce yourself.</p>
+        <p style="font-family:'EB Garamond',serif; font-size:1.05rem; color:var(--gray-light); line-height:1.9; margin-bottom:0.5rem;">02 &nbsp;&mdash;&nbsp; A government member grants you the Resident role in-game.</p>
+        <p style="font-family:'EB Garamond',serif; font-size:1.05rem; color:var(--gray-light); line-height:1.9;">03 &nbsp;&mdash;&nbsp; After one week as a Resident, you may apply for full Citizenship.</p>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- ─── CONTENT ─── -->
 <div class="page-content">
 
-  <!-- How to Join -->
-  <div class="reveal" style="margin-bottom:3.5rem;">
-    <div class="sec-label">How to Join</div>
-    <div class="join-box">
-      <p style="font-family:'EB Garamond',serif; font-size:1.05rem; color:var(--gray-light); line-height:1.9; margin-bottom:1.5rem;">
-        Becoming a resident of Bloom is straightforward. Residency may be granted by the Speaker, the President, any Congress member, or a Secretary. The quickest way to get started is to join our Discord and introduce yourself.
-      </p>
-      <div class="join-steps">
-        <div class="join-step">
-          <span class="step-num">01</span>
-          <p class="step-text">Join the Bloom Discord server and introduce yourself in the appropriate channel.</p>
-        </div>
-        <div class="join-step">
-          <span class="step-num">02</span>
-          <p class="step-text">A government member will grant you the Resident role in-game, giving you access to property ownership and factory access within Bloom.</p>
-        </div>
-        <div class="join-step">
-          <span class="step-num">03</span>
-          <p class="step-text">After one week as a Resident with Bloom as your primary nation, you become eligible to apply for full Citizenship.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Tiers -->
-  <div class="reveal reveal-d1">
-    <div class="sec-label">Citizenship Tiers</div>
-    <div class="tier-grid">
-      <div class="tier-cell">
-        <span class="tier-tag">Tier I</span>
-        <div class="tier-title">Resident</div>
-        <p class="tier-body">
-          The entry level of membership in Bloom. Residents have the right to own property and access factories within Bloom's borders.
-          <strong>Requirements</strong>
-          Granted by the Speaker, President, a Congress member, or a Secretary. Players with a history of treason, exile, or affiliation with nations at war with Bloom are ineligible.
-        </p>
+  <div class="reveal">
+    <p style="font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.38em; color:var(--chrome); margin-bottom:2rem;">Citizenship Tiers</p>
+    <div style="display:flex; flex-direction:column; gap:2rem;">
+
+      <div>
+        <p style="font-family:'Cinzel',serif; font-size:0.78rem; letter-spacing:0.1em; color:var(--chrome-light); margin-bottom:0.6rem;">Resident</p>
+        <p style="font-family:'EB Garamond',serif; font-size:1rem; color:var(--gray-light); line-height:1.85;">Entry level membership. Grants property ownership and factory access within Bloom. Eligible players are granted residency by any government member.</p>
       </div>
-      <div class="tier-cell">
-        <span class="tier-tag">Tier II</span>
-        <div class="tier-title">Citizen</div>
-        <p class="tier-body">
-          Full citizens are eligible to vote in elections, hold elected and non-elected offices, and access non-botable public farms.
-          <strong>Requirements</strong>
-          Must hold Resident status for a minimum of one week, and must maintain Bloom as their primary nation. Elevated by unanimous agreement of the Speaker and President.
-        </p>
+
+      <div style="border-top:1px solid var(--border); padding-top:2rem;">
+        <p style="font-family:'Cinzel',serif; font-size:0.78rem; letter-spacing:0.1em; color:var(--chrome-light); margin-bottom:0.6rem;">Citizen</p>
+        <p style="font-family:'EB Garamond',serif; font-size:1rem; color:var(--gray-light); line-height:1.85;">Full voting rights, eligible to hold office, and access to non-botable public farms. Requires one week as a Resident with Bloom as your primary nation.</p>
       </div>
-      <div class="tier-cell">
-        <span class="tier-tag">Tier III</span>
-        <div class="tier-title">Dignitary</div>
-        <p class="tier-body">
-          The highest citizenship tier. Dignitaries receive access to botable farms and elite smelter rates at the public exchange.
-          <strong>Requirements</strong>
-          Must hold Citizen status for one month and complete qualifying jobs. Apply via an official Discord ticket. Approved unanimously by the Speaker and President.
-        </p>
+
+      <div style="border-top:1px solid var(--border); padding-top:2rem;">
+        <p style="font-family:'Cinzel',serif; font-size:0.78rem; letter-spacing:0.1em; color:var(--chrome-light); margin-bottom:0.6rem;">Dignitary</p>
+        <p style="font-family:'EB Garamond',serif; font-size:1rem; color:var(--gray-light); line-height:1.85;">The highest tier. Access to botable farms and elite smelter rates. Requires one month as a Citizen and completion of qualifying jobs.</p>
       </div>
+
     </div>
   </div>
 
   <!-- Discord CTA -->
-  <div class="discord-cta reveal reveal-d2">
-    <div class="discord-cta-text">
-      <strong>Ready to join?</strong>
-      <p>Reach out on Discord to get started — a government member will get you set up.</p>
-    </div>
-    <a href="https://discord.gg/aV6VM32EZR" target="_blank" class="discord-cta-btn">
-      <svg viewBox="0 0 24 24" style="width:12px;height:12px;fill:currentColor;"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+  <div class="reveal" style="margin-top:3.5rem;">
+    <a href="https://discord.gg/aV6VM32EZR" target="_blank" style="display:inline-flex; align-items:center; gap:0.5rem; padding:0.7rem 1.5rem; background:rgba(88,101,242,0.14); border:1px solid rgba(88,101,242,0.35); font-family:'Cinzel',serif; font-size:0.6rem; letter-spacing:0.16em; color:#aab6ff; text-decoration:none; transition:all 0.2s;" onmouseover="this.style.background='rgba(88,101,242,0.28)';this.style.color='#d0d8ff'" onmouseout="this.style.background='rgba(88,101,242,0.14)';this.style.color='#aab6ff'">
       Join Discord &rarr;
     </a>
   </div>
