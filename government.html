@@ -644,43 +644,10 @@
         <span style="flex:1; height:1px; background:var(--border); display:block;"></span>
       </div>
 
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border);">
-
-        <!-- Law entry — duplicate this block for each law, newest first -->
-        <div style="background:rgba(14,7,30,0.82); padding:1.25rem 1.5rem;">
-          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:1rem; margin-bottom:0.85rem;">
-            <div style="font-family:'Cinzel',serif; font-size:0.62rem; color:var(--chrome-light); letter-spacing:0.08em;">Infrastructure Expansion Act</div>
-            <div style="font-family:'Cinzel',serif; font-size:0.45rem; letter-spacing:0.2em; color:var(--purple-rich); white-space:nowrap;">May 2026</div>
-          </div>
-          <iframe
-            src="https://docs.google.com/document/d/1gmTk6I_L0L1TnGOi48wGtyqUFw2802yBO7BsCYMxwps/preview"
-            style="width:100%; height:180px; border:none; display:block; background:#fff; pointer-events:none;"
-            loading="lazy"
-            title="Infrastructure Expansion Act"
-          ></iframe>
-          <div style="margin-top:0.65rem;">
-            <a href="https://docs.google.com/document/d/1gmTk6I_L0L1TnGOi48wGtyqUFw2802yBO7BsCYMxwps/edit" target="_blank" style="font-family:'Cinzel',serif; font-size:0.48rem; letter-spacing:0.14em; color:var(--chrome); text-decoration:none;" onmouseover="this.style.color='#f4f2f7'" onmouseout="this.style.color='#a8a4b8'">Open &rarr;</a>
-          </div>
+      <div id="bills-feed" style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border);">
+        <div style="background:rgba(14,7,30,0.82); padding:2rem; grid-column:span 2; text-align:center;">
+          <p style="font-family:'EB Garamond',serif; font-size:0.95rem; color:var(--gray-light); font-style:italic;">Loading recent laws...</p>
         </div>
-
-        <div style="background:rgba(14,7,30,0.82); padding:1.25rem 1.5rem;">
-          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:1rem; margin-bottom:0.85rem;">
-            <div style="font-family:'Cinzel',serif; font-size:0.62rem; color:var(--chrome-light); letter-spacing:0.08em;">Agricultural Reform Act</div>
-            <div style="font-family:'Cinzel',serif; font-size:0.45rem; letter-spacing:0.2em; color:var(--purple-rich); white-space:nowrap;">April 2026</div>
-          </div>
-          <iframe
-            src="https://docs.google.com/document/d/1gmTk6I_L0L1TnGOi48wGtyqUFw2802yBO7BsCYMxwps/preview"
-            style="width:100%; height:180px; border:none; display:block; background:#fff; pointer-events:none;"
-            loading="lazy"
-            title="Agricultural Reform Act"
-          ></iframe>
-          <div style="margin-top:0.65rem;">
-            <a href="https://docs.google.com/document/d/1gmTk6I_L0L1TnGOi48wGtyqUFw2802yBO7BsCYMxwps/edit" target="_blank" style="font-family:'Cinzel',serif; font-size:0.48rem; letter-spacing:0.14em; color:var(--chrome); text-decoration:none;" onmouseover="this.style.color='#f4f2f7'" onmouseout="this.style.color='#a8a4b8'">Open &rarr;</a>
-          </div>
-        </div>
-
-        <!-- Add more law entries here -->
-
       </div>
     </div>
 
@@ -718,10 +685,48 @@
   close.addEventListener('click', closeDrawer);
   drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
 
+  /* Bills feed */
+  const GIST_ID = 'c0e6631773692d0c353929162506b70d';
+
+  async function loadBills() {
+    const feed = document.getElementById('bills-feed');
+    try {
+      const res = await fetch(`https://api.github.com/gists/${GIST_ID}`);
+      const gist = await res.json();
+      const data = JSON.parse(gist.files['bloom-data.json'].content);
+      const bills = (data.messages || []).filter(m => m.channel === 'passed-bills' && m.type === 'bill');
+
+      if (bills.length === 0) {
+        feed.innerHTML = `<div style="background:rgba(14,7,30,0.82); padding:2rem; grid-column:span 2; text-align:center;"><p style="font-family:'EB Garamond',serif; font-size:0.95rem; color:var(--gray-light); font-style:italic;">No bills have been passed yet.</p></div>`;
+        return;
+      }
+
+      feed.innerHTML = bills.map(bill => {
+        const previewUrl = bill.link ? bill.link.replace('/edit', '/preview').replace('/view', '/preview') : null;
+        return `
+          <div style="background:rgba(14,7,30,0.82); padding:1.25rem 1.5rem;">
+            <div style="display:flex; align-items:baseline; justify-content:space-between; gap:1rem; margin-bottom:0.85rem;">
+              <div style="font-family:'Cinzel',serif; font-size:0.62rem; color:var(--chrome-light); letter-spacing:0.08em;">${bill.title || 'Untitled Bill'}</div>
+              <div style="font-family:'Cinzel',serif; font-size:0.45rem; letter-spacing:0.2em; color:var(--purple-rich); white-space:nowrap;">${bill.date_passed || ''}</div>
+            </div>
+            ${previewUrl ? `<iframe src="${previewUrl}" style="width:100%; height:180px; border:none; display:block; background:#fff; pointer-events:none;" loading="lazy"></iframe>` : ''}
+            <div style="margin-top:0.65rem;">
+              ${bill.link ? `<a href="${bill.link}" target="_blank" style="font-family:'Cinzel',serif; font-size:0.48rem; letter-spacing:0.14em; color:var(--chrome); text-decoration:none;" onmouseover="this.style.color='#f4f2f7'" onmouseout="this.style.color='#a8a4b8'">Open &rarr;</a>` : ''}
+            </div>
+          </div>`;
+      }).join('');
+
+    } catch (e) {
+      feed.innerHTML = `<div style="background:rgba(14,7,30,0.82); padding:2rem; grid-column:span 2; text-align:center;"><p style="font-family:'EB Garamond',serif; font-size:0.95rem; color:var(--gray-light); font-style:italic;">Could not load bills.</p></div>`;
+    }
+  }
+
   const resourcesDropdown = document.getElementById('resourcesDropdown');
   const resourcesBtn = document.getElementById('resourcesBtn');
   resourcesBtn.addEventListener('click', (e) => { e.stopPropagation(); resourcesDropdown.classList.toggle('open'); });
   document.addEventListener('click', () => { resourcesDropdown.classList.remove('open'); });
+
+  loadBills();
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } });
