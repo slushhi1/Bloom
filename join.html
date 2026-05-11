@@ -178,9 +178,9 @@
       min-height: calc(100vh - 72px);
       position: relative;
       overflow: hidden;
-      display: flex;
-      align-items: flex-end;
-      padding: 0 2.5rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
       border-bottom: 1px solid var(--border);
     }
 
@@ -198,17 +198,20 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(5, 2, 12, 0.35);
+      background: rgba(5, 2, 12, 0.25);
     }
 
     .page-hero-content {
       position: relative;
       z-index: 1;
-      max-width: 1100px;
-      margin: 0 auto;
-      width: 100%;
+      grid-column: 1;
       display: flex;
-      justify-content: flex-end;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 3rem 4rem 3.5rem;
+      background: linear-gradient(to right, rgba(8,4,20,0.82) 0%, rgba(8,4,20,0.65) 50%, rgba(8,4,20,0) 100%);
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
     }
 
     .page-eyebrow {
@@ -549,56 +552,53 @@
 <!-- ─── HERO ─── -->
 <div class="page-hero">
   <div class="page-hero-bg"></div>
+
   <div class="page-hero-content">
-    <div style="max-width:420px;">
-      <span class="page-eyebrow">Citizenship</span>
-      <h1 class="page-title">How to Join Bloom</h1>
-      <div class="page-rule" style="margin-bottom:2rem;"></div>
-      <div style="background:rgba(10,5,22,0.45); backdrop-filter:blur(8px); border:1px solid var(--border); padding:2rem 2.5rem;">
-        <p style="font-family:'EB Garamond',serif; font-size:1.05rem; color:var(--gray-light); line-height:1.9; margin-bottom:1.5rem;">
-          Residency may be granted by the Speaker, the President, any Congress member, or a Secretary. Join our Discord and introduce yourself to get started.
-        </p>
-        <p style="font-family:'EB Garamond',serif; font-size:1.05rem; color:var(--gray-light); line-height:1.9; margin-bottom:0.5rem;">01 &nbsp;&mdash;&nbsp; Join the Bloom Discord and introduce yourself.</p>
-        <p style="font-family:'EB Garamond',serif; font-size:1.05rem; color:var(--gray-light); line-height:1.9; margin-bottom:0.5rem;">02 &nbsp;&mdash;&nbsp; A government member grants you the Resident role in-game.</p>
-        <p style="font-family:'EB Garamond',serif; font-size:1.05rem; color:var(--gray-light); line-height:1.9;">03 &nbsp;&mdash;&nbsp; After one week as a Resident, you may apply for full Citizenship.</p>
+    <span class="page-eyebrow">Citizenship</span>
+    <h1 class="page-title" style="font-size:clamp(2rem,4vw,3rem); margin-bottom:0.5rem;">How to Join Bloom</h1>
+    <div class="page-rule" style="margin-bottom:2rem;"></div>
+
+    <p style="font-family:'EB Garamond',serif; font-size:1rem; color:var(--gray-light); line-height:1.85; margin-bottom:2rem;">
+      Residency can be granted by the Speaker, the President, any Congress member, or a Secretary. The easiest way to start is through Discord.
+    </p>
+
+    <div style="display:flex; flex-direction:column; gap:1.1rem; margin-bottom:2.5rem;">
+      <div style="display:flex; gap:1.25rem; align-items:flex-start;">
+        <span style="font-family:'Cinzel',serif; font-size:0.48rem; letter-spacing:0.2em; color:var(--gold); padding-top:0.3rem; flex-shrink:0;">01</span>
+        <p style="font-family:'EB Garamond',serif; font-size:1rem; color:var(--white); line-height:1.7;">Join the Bloom Discord and introduce yourself.</p>
+      </div>
+      <div style="display:flex; gap:1.25rem; align-items:flex-start;">
+        <span style="font-family:'Cinzel',serif; font-size:0.48rem; letter-spacing:0.2em; color:var(--gold); padding-top:0.3rem; flex-shrink:0;">02</span>
+        <p style="font-family:'EB Garamond',serif; font-size:1rem; color:var(--white); line-height:1.7;">A government member grants you the Resident role in-game.</p>
+      </div>
+      <div style="display:flex; gap:1.25rem; align-items:flex-start;">
+        <span style="font-family:'Cinzel',serif; font-size:0.48rem; letter-spacing:0.2em; color:var(--gold); padding-top:0.3rem; flex-shrink:0;">03</span>
+        <p style="font-family:'EB Garamond',serif; font-size:1rem; color:var(--white); line-height:1.7;">After one week, you may apply for full Citizenship.</p>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- ─── CONTENT ─── -->
-<div class="page-content">
-
-  <!-- Tiers -->
-  <div class="reveal">
-    <p style="font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.38em; color:var(--chrome); margin-bottom:2rem;">Citizenship Tiers</p>
-    <div style="display:flex; flex-direction:column; gap:2rem;">
-
-      <div>
-        <p style="font-family:'Cinzel',serif; font-size:0.78rem; letter-spacing:0.1em; color:var(--chrome-light); margin-bottom:0.6rem;">Resident</p>
-        <p style="font-family:'EB Garamond',serif; font-size:1rem; color:var(--gray-light); line-height:1.85;">Entry level membership. Grants property ownership and factory access within Bloom. Eligible players are granted residency by any government member.</p>
-      </div>
-
-      <div style="border-top:1px solid var(--border); padding-top:2rem;">
-        <p style="font-family:'Cinzel',serif; font-size:0.78rem; letter-spacing:0.1em; color:var(--chrome-light); margin-bottom:0.6rem;">Citizen</p>
-        <p style="font-family:'EB Garamond',serif; font-size:1rem; color:var(--gray-light); line-height:1.85;">Full voting rights, eligible to hold office, and access to non-botable public farms. Requires one week as a Resident with Bloom as your primary nation.</p>
-      </div>
-
-      <div style="border-top:1px solid var(--border); padding-top:2rem;">
-        <p style="font-family:'Cinzel',serif; font-size:0.78rem; letter-spacing:0.1em; color:var(--chrome-light); margin-bottom:0.6rem;">Dignitary</p>
-        <p style="font-family:'EB Garamond',serif; font-size:1rem; color:var(--gray-light); line-height:1.85;">The highest tier. Access to botable farms and elite smelter rates. Requires one month as a Citizen and completion of qualifying jobs.</p>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Discord CTA -->
-  <div class="reveal" style="margin-top:3.5rem;">
-    <a href="https://discord.gg/aV6VM32EZR" target="_blank" style="display:inline-flex; align-items:center; gap:0.5rem; padding:0.7rem 1.5rem; background:rgba(88,101,242,0.14); border:1px solid rgba(88,101,242,0.35); font-family:'Cinzel',serif; font-size:0.6rem; letter-spacing:0.16em; color:#aab6ff; text-decoration:none; transition:all 0.2s;" onmouseover="this.style.background='rgba(88,101,242,0.28)';this.style.color='#d0d8ff'" onmouseout="this.style.background='rgba(88,101,242,0.14)';this.style.color='#aab6ff'">
+    <a href="https://discord.gg/aV6VM32EZR" target="_blank" style="display:inline-flex; align-items:center; gap:0.5rem; padding:0.75rem 1.6rem; background:rgba(88,101,242,0.2); border:1px solid rgba(88,101,242,0.45); font-family:'Cinzel',serif; font-size:0.6rem; letter-spacing:0.16em; color:#aab6ff; text-decoration:none; transition:all 0.2s; margin-bottom:3rem;" onmouseover="this.style.background='rgba(88,101,242,0.35)';this.style.color='#d0d8ff'" onmouseout="this.style.background='rgba(88,101,242,0.2)';this.style.color='#aab6ff'">
       Join Discord &rarr;
     </a>
-  </div>
 
+    <div style="border-top:1px solid var(--border); padding-top:1.75rem;">
+      <p style="font-family:'Cinzel',serif; font-size:0.46rem; letter-spacing:0.32em; color:var(--purple-rich); margin-bottom:1.1rem;">Citizenship Tiers</p>
+      <div style="display:flex; flex-direction:column; gap:0.65rem;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; gap:1rem;">
+          <span style="font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:0.1em; color:var(--chrome-light);">Resident</span>
+          <span style="font-family:'EB Garamond',serif; font-size:0.9rem; color:var(--gray-light); font-style:italic; text-align:right;">property &amp; factory access</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; gap:1rem;">
+          <span style="font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:0.1em; color:var(--chrome-light);">Citizen</span>
+          <span style="font-family:'EB Garamond',serif; font-size:0.9rem; color:var(--gray-light); font-style:italic; text-align:right;">voting rights &amp; public farms</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; gap:1rem;">
+          <span style="font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:0.1em; color:var(--chrome-light);">Dignitary</span>
+          <span style="font-family:'EB Garamond',serif; font-size:0.9rem; color:var(--gray-light); font-style:italic; text-align:right;">botable farms &amp; elite smelter rates</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ─── FOOTER ─── -->
