@@ -19,7 +19,7 @@
       --bg:          #0d0520;
       --sidebar-w:   240px;
     }
-    html { scroll-behavior:smooth; }
+    html { scroll-behavior: auto; }
     body { font-family:'Jost',sans-serif; color:var(--white); background:var(--bg); overflow-x:hidden; }
 
     /* HEADER */
@@ -370,9 +370,8 @@
 
 <script>
   // Prevent auto-scroll to hash on load
-  if (window.location.hash) {
-    history.replaceState(null, '', window.location.pathname);
-  }
+  history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
 
   const toggle = document.getElementById('navToggle');
   const drawer = document.getElementById('drawer');
@@ -433,25 +432,14 @@
         const role = el.id.replace('role-', '');
         const members = gov[role];
         if (members && members.length > 0) {
-          if (role === 'Congress Member') {
-            el.innerHTML = members.map(name => `
-              <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.35rem;">
-                <img src="https://crafatar.com/avatars/${encodeURIComponent(name)}?size=24&overlay" 
-                     alt="${name}" width="24" height="24" 
-                     style="image-rendering:pixelated;border-radius:2px;flex-shrink:0;"
-                     onerror="this.style.display='none'">
-                <span>${name}</span>
-              </div>`).join('');
-          } else {
-            el.innerHTML = members.map(name => `
-              <div style="display:flex;align-items:center;gap:0.6rem;">
-                <img src="https://crafatar.com/avatars/${encodeURIComponent(name)}?size=24&overlay" 
-                     alt="${name}" width="24" height="24" 
-                     style="image-rendering:pixelated;border-radius:2px;flex-shrink:0;"
-                     onerror="this.style.display='none'">
-                <span>${name}</span>
-              </div>`).join('');
-          }
+          el.innerHTML = members.map(name => `
+            <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.35rem;">
+              <img src="https://mc-heads.net/avatar/${encodeURIComponent(name)}/24"
+                   alt="${name}" width="24" height="24"
+                   style="image-rendering:pixelated;border-radius:2px;flex-shrink:0;"
+                   onerror="this.style.display='none'">
+              <span>${name}</span>
+            </div>`).join('');
         } else {
           el.innerHTML = '<span class="roster-vacant">Vacant</span>';
         }
