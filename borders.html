@@ -106,8 +106,7 @@
     /* Dropdown menus */
     .nav-dropdown-menu {
       position: absolute;
-      top: 100%;
-      left: 0;
+      top: 100%; right: 0;
       background: rgba(13, 5, 32, 0.97);
       backdrop-filter: blur(22px);
       border: 1px solid var(--border);
@@ -118,7 +117,6 @@
       flex-direction: column;
     }
     .header-nav > li.open .nav-dropdown-menu { display: flex; }
-
     .nav-dropdown-menu a {
       display: block;
       padding: 0.85rem 1.25rem;
@@ -141,28 +139,6 @@
       margin-top: 0.15rem;
     }
 
-    /* Discord pill */
-    .discord-pill { margin-left: 0.5rem; display:flex; align-items:center; gap:0.45rem; padding:0.38rem 0.9rem; background:rgba(88,101,242,0.14); border:1px solid rgba(88,101,242,0.32); text-decoration:none; font-family:'Cinzel',serif; font-size:0.51rem; letter-spacing:0.17em; color:#a0aaee; white-space:nowrap; transition:all 0.2s; flex-shrink:0; margin-left:1.25rem; }
-    .discord-pill:hover { background:rgba(88,101,242,0.28); border-color:rgba(88,101,242,0.6); color:#c8d0ff; }
-    .discord-pill svg { width:12px; height:12px; fill:currentColor; }
-
-    .nav-toggle { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; margin-left:auto; }
-    .nav-toggle span { display:block; width:20px; height:1.5px; background:var(--gray-light); }
-
-    @media (max-width:960px) {
-      .header-nav, .discord-pill { display:none; }
-      .nav-toggle { display:flex; }
-    }
-    .nav-dropdown { position:relative; }
-    .nav-dropdown-btn { display:flex; align-items:center; gap:0.4rem; padding:0 1.05rem; height:72px; font-family:'Cinzel',serif; font-size:0.68rem; letter-spacing:0.12em; color:var(--chrome-light); cursor:pointer; background:none; border:none; border-bottom:2px solid transparent; transition:color 0.2s,border-color 0.2s,background 0.2s; white-space:nowrap; }
-    .nav-dropdown-btn:hover,.nav-dropdown.open .nav-dropdown-btn { color:var(--white); border-bottom-color:var(--purple-rich); background:rgba(112,64,176,0.09); }
-    .nav-dropdown-btn svg { width:8px; height:8px; fill:currentColor; transition:transform 0.2s; }
-    .nav-dropdown.open .nav-dropdown-btn svg { transform:rotate(180deg); }
-    .nav-dropdown-menu { position:absolute; top:100%; right:0; background:rgba(20,8,45,0.97); backdrop-filter:blur(22px); border:1px solid var(--border); border-top:none; min-width:210px; display:none; z-index:300; }
-    .nav-dropdown.open .nav-dropdown-menu { display:block; }
-    .nav-dropdown-menu a { display:block; padding:0.9rem 1.25rem; font-family:'Cinzel',serif; font-size:0.63rem; letter-spacing:0.12em; color:var(--chrome-light); text-decoration:none; border-bottom:1px solid var(--border); transition:color 0.2s,background 0.2s; }
-    .nav-dropdown-menu a:last-child { border-bottom:none; }
-    .nav-dropdown-menu a:hover { color:var(--white); background:rgba(112,64,176,0.12); }
     .discord-pill { margin-left: 0.5rem; display:flex; align-items:center; gap:0.45rem; padding:0.38rem 0.9rem; background:rgba(88,101,242,0.14); border:1px solid rgba(88,101,242,0.32); text-decoration:none; font-family:'Cinzel',serif; font-size:0.51rem; letter-spacing:0.17em; color:#a0aaee; white-space:nowrap; transition:all 0.2s; flex-shrink:0; margin-left:0.5rem; }
     .discord-pill:hover { background:rgba(88,101,242,0.28); border-color:rgba(88,101,242,0.6); color:#c8d0ff; }
     .discord-pill svg { width:12px; height:12px; fill:currentColor; }
@@ -342,7 +318,8 @@
 <!-- MAP -->
 <div id="bloom-map"></div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
   /* Dropdown nav */
   document.querySelectorAll('.nav-has-dropdown').forEach(li => {
     const btn = li.querySelector('button');
