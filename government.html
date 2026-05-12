@@ -179,7 +179,6 @@
       font-family: 'EB Garamond', serif;
       font-size: 1rem;
       color: var(--chrome-light);
-      font-style: italic;
       margin-top: 0.35rem;
     }
     .roster-vacant {
@@ -370,6 +369,11 @@
 </footer>
 
 <script>
+  // Prevent auto-scroll to hash on load
+  if (window.location.hash) {
+    history.replaceState(null, '', window.location.pathname);
+  }
+
   const toggle = document.getElementById('navToggle');
   const drawer = document.getElementById('drawer');
   const overlay = document.getElementById('drawerOverlay');
@@ -429,7 +433,11 @@
         const role = el.id.replace('role-', '');
         const members = gov[role];
         if (members && members.length > 0) {
-          el.textContent = members.join(', ');
+          if (role === 'Congress Member') {
+            el.innerHTML = members.map(m => `<div>${m}</div>`).join('');
+          } else {
+            el.textContent = members.join(', ');
+          }
         } else {
           el.innerHTML = '<span class="roster-vacant">Vacant</span>';
         }
