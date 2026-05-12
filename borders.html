@@ -320,22 +320,18 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
-  /* Dropdown nav */
+  /* Nav dropdowns */
   document.querySelectorAll('.nav-has-dropdown').forEach(li => {
-    const btn = li.querySelector('button');
-    btn.addEventListener('click', e => {
+    li.querySelector('button').addEventListener('click', e => {
       e.stopPropagation();
       const wasOpen = li.classList.contains('open');
       document.querySelectorAll('.nav-has-dropdown').forEach(x => x.classList.remove('open'));
       if (!wasOpen) li.classList.add('open');
     });
   });
-  document.addEventListener('click', () => {
-    document.querySelectorAll('.nav-has-dropdown').forEach(x => x.classList.remove('open'));
-  });
-</script>
-<script>
-  /* Nav */
+  document.addEventListener('click', () => document.querySelectorAll('.nav-has-dropdown').forEach(x => x.classList.remove('open')));
+
+  /* Drawer */
   const toggle = document.getElementById('navToggle');
   const drawer = document.getElementById('drawer');
   const drawerOverlay = document.getElementById('drawerOverlay');
@@ -346,11 +342,6 @@
   drawerOverlay.addEventListener('click', closeD);
   closeBtn.addEventListener('click', closeD);
   drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeD));
-
-  const rd = document.getElementById('resourcesDropdown');
-  const rb = document.getElementById('resourcesBtn');
-  rb.addEventListener('click', e => { e.stopPropagation(); rd.classList.toggle('open'); });
-  document.addEventListener('click', () => rd.classList.remove('open'));
 
   /* Map */
   function mc(x, z) { return [-z, x]; }
