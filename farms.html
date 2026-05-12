@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farms — Republic of Bloom</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --purple-rich: #7040b0;
+      --white:       #f4f2f7;
+      --gray-light:  #b8b4c2;
+      --chrome:      #a8a4b8;
+      --chrome-light:#d8d5de;
+      --gold:        #b89a3a;
+      --border:      rgba(112,64,176,0.26);
+      --bg:          #0d0520;
+      --cold:        #5a8fc7;
+      --temp:        #5a9a5a;
+      --trop:        #c8922a;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family:'Jost',sans-serif; color:var(--white); background:var(--bg); overflow-x:hidden; }
+
+    /* ── HEADER ── */
+    header { position:fixed; top:0; left:0; right:0; z-index:200; background:rgba(13,5,32,0.92); backdrop-filter:blur(22px); border-bottom:1px solid var(--border); height:68px; }
+    .header-inner { max-width:1200px; margin:0 auto; padding:0 2rem; display:flex; align-items:center; height:68px; }
+    .flag-stripe { display:flex; gap:3px; align-items:center; flex-shrink:0; margin-right:1rem; }
+    .flag-stripe span { display:block; width:4px; height:24px; }
+    .flag-stripe .s1 { background:var(--purple-rich); }
+    .flag-stripe .s2 { background:#eeecf3; }
+    .flag-stripe .s3 { background:#555; }
+    .site-title { font-family:'Cinzel',serif; font-size:0.85rem; letter-spacing:0.28em; color:var(--chrome-light); text-decoration:none; }
+    .header-nav { display:flex; list-style:none; align-items:stretch; height:68px; margin-left:auto; }
+    .header-nav > li { display:flex; align-items:stretch; position:relative; }
+    .header-nav > li > a, .header-nav > li > button { display:flex; align-items:center; gap:0.35rem; padding:0 1rem; font-family:'Cinzel',serif; font-size:0.6rem; letter-spacing:0.14em; color:var(--chrome-light); text-decoration:none; border-bottom:2px solid transparent; background:none; border-top:none; border-left:none; border-right:none; cursor:pointer; white-space:nowrap; transition:color 0.2s,border-color 0.2s,background 0.2s; height:100%; }
+    .header-nav > li > a:hover, .header-nav > li > button:hover, .header-nav > li.open > button, .header-nav > li > a.active { color:var(--white); border-bottom-color:var(--purple-rich); background:rgba(112,64,176,0.09); }
+    .header-nav > li > button svg { width:7px; height:7px; fill:currentColor; transition:transform 0.2s; }
+    .header-nav > li.open > button svg { transform:rotate(180deg); }
+    .nav-dropdown-menu { position:absolute; top:100%; right:0; background:rgba(13,5,32,0.97); backdrop-filter:blur(22px); border:1px solid var(--border); border-top:none; min-width:210px; display:none; z-index:400; flex-direction:column; }
+    .header-nav > li.open .nav-dropdown-menu { display:flex; }
+    .nav-dropdown-menu a { display:block; padding:0.75rem 1.25rem; font-family:'Jost',sans-serif; font-size:1.1rem; font-weight:400; letter-spacing:0.04em; color:var(--white); text-decoration:none; border-bottom:1px solid var(--border); transition:color 0.2s,background 0.2s; }
+    .nav-dropdown-menu a:last-child { border-bottom:none; }
+    .nav-dropdown-menu a:hover { color:var(--white); background:rgba(112,64,176,0.15); }
+    .nav-dropdown-menu .menu-desc { font-family:'Jost',sans-serif; font-size:0.75rem; font-weight:300; color:var(--gray-light); font-style:normal; display:block; margin-top:0.18rem; letter-spacing:0.01em; }
+    .discord-pill { display:flex; align-items:center; gap:0.45rem; padding:0.38rem 0.9rem; background:rgba(88,101,242,0.14); border:1px solid rgba(88,101,242,0.32); text-decoration:none; font-family:'Cinzel',serif; font-size:0.51rem; letter-spacing:0.17em; color:#a0aaee; white-space:nowrap; transition:all 0.2s; flex-shrink:0; margin-left:0.5rem; }
+    .discord-pill:hover { background:rgba(88,101,242,0.28); border-color:rgba(88,101,242,0.6); color:#c8d0ff; }
+    .discord-pill svg { width:12px; height:12px; fill:currentColor; }
+    .nav-toggle { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; margin-left:auto; }
+    .nav-toggle span { display:block; width:20px; height:1.5px; background:var(--gray-light); }
+
+    /* ── BANNER ── */
+    .banner { margin-top:68px; height:200px; position:relative; overflow:hidden; border-bottom:1px solid var(--border); }
+    .banner-bg { position:absolute; inset:0; background:url('/Bloom/assets/images/farm-bg.png') center/cover no-repeat; filter:blur(3px) brightness(0.35); transform:scale(1.05); }
+    .banner-overlay { position:absolute; inset:0; background:linear-gradient(to bottom, rgba(13,5,32,0.2) 0%, rgba(13,5,32,0.65) 100%); }
+    .banner-content { position:relative; z-index:1; height:100%; display:flex; flex-direction:column; justify-content:flex-end; padding:0 3rem 2rem; max-width:1200px; margin:0 auto; }
+    .banner-eyebrow { font-family:'Cinzel',serif; font-size:0.48rem; letter-spacing:0.4em; color:var(--purple-rich); display:block; margin-bottom:0.5rem; }
+    .banner-title { font-family:'Cinzel',serif; font-size:clamp(1.8rem,4vw,2.8rem); font-weight:500; letter-spacing:0.08em; color:var(--white); }
+
+    /* ── LAYOUT ── */
+    .page-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      max-width: 1200px;
+      margin: 0 auto;
+      min-height: calc(100vh - 268px);
+      align-items: start;
+    }
+
+    /* ── SIDEBAR ── */
+    .farm-sidebar {
+      position: sticky;
+      top: 88px;
+      border-right: 1px solid var(--border);
+      padding: 2rem 0;
+    }
+
+    .sidebar-intro {
+      padding: 0 1.25rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1rem;
+      font-family: 'EB Garamond', serif;
+      font-size: 0.95rem;
+      color: var(--gray-light);
+      line-height: 1.72;
+    }
+
+    .biome-group { margin-bottom: 0.25rem; }
+
+    .biome-group-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 1.25rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.46rem;
+      letter-spacing: 0.32em;
+    }
+
+    .biome-pip { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+    .pip-cold { background:var(--cold); }
+    .pip-temp { background:var(--temp); }
+    .pip-trop { background:var(--trop); }
+    .label-cold { color:var(--cold); }
+    .label-temp { color:var(--temp); }
+    .label-trop { color:var(--trop); }
+
+    .farm-nav-link {
+      display: block;
+      padding: 0.55rem 1.25rem 0.55rem 2.6rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      color: var(--chrome);
+      text-decoration: none;
+      transition: color 0.2s, background 0.2s, border-left 0.2s;
+      border-left: 2px solid transparent;
+    }
+    .farm-nav-link:hover { color: var(--white); background: rgba(112,64,176,0.08); }
+    .farm-nav-link.active-link { color: var(--white); border-left-color: var(--purple-rich); background: rgba(112,64,176,0.1); }
+
+    /* ── CONTENT ── */
+    .farm-content {
+      padding: 3rem 3rem 6rem;
+    }
+
+    .farm-entry {
+      margin-bottom: 4rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid var(--border);
+      scroll-margin-top: 90px;
+    }
+    .farm-entry:last-child { border-bottom: none; }
+
+    .farm-entry-eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: 0.46rem;
+      letter-spacing: 0.32em;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .eyebrow-cold { color: var(--cold); }
+    .eyebrow-temp { color: var(--temp); }
+    .eyebrow-trop { color: var(--trop); }
+
+    .farm-entry-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+
+    .farm-entry-rule {
+      width: 36px;
+      height: 1px;
+      margin-bottom: 1.5rem;
+    }
+    .rule-cold { background: linear-gradient(90deg, var(--cold), transparent); }
+    .rule-temp { background: linear-gradient(90deg, var(--temp), transparent); }
+    .rule-trop { background: linear-gradient(90deg, var(--trop), transparent); }
+
+    .farm-entry-body {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--gray-light);
+      line-height: 1.88;
+      margin-bottom: 1.5rem;
+    }
+
+    .farm-media-placeholder {
+      background: rgba(14,7,30,0.6);
+      border: 1px dashed var(--border);
+      border-radius: 4px;
+      padding: 2.5rem;
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      color: rgba(168,164,184,0.35);
+      margin-top: 1.25rem;
+    }
+
+
+    /* ACCESS BADGES */
+    .access-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.42rem;
+      letter-spacing: 0.18em;
+      padding: 0.18rem 0.6rem;
+      border-radius: 2px;
+      margin-bottom: 1.2rem;
+    }
+    .badge-open {
+      background: rgba(90,154,90,0.12);
+      border: 1px solid rgba(90,154,90,0.35);
+      color: #7dba7d;
+    }
+    .badge-citizen {
+      background: rgba(112,64,176,0.12);
+      border: 1px solid rgba(112,64,176,0.35);
+      color: #b080e8;
+    }
+    .badge-dot {
+      width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0;
+    }
+    .badge-open .badge-dot { background: #7dba7d; }
+    .badge-citizen .badge-dot { background: #b080e8; }
+
+    /* Sidebar access indicator */
+    .farm-nav-link { position: relative; }
+    .nav-pip {
+      display: inline-block;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .nav-pip-open { background: rgba(90,154,90,0.7); }
+    .nav-pip-citizen { background: rgba(112,64,176,0.7); }
+    .farm-nav-link { display: flex; align-items: center; justify-content: space-between; }
+
+    /* FILTER BUTTONS */
+    .filter-group {
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .filter-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.42rem;
+      letter-spacing: 0.28em;
+      color: var(--chrome);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .filter-btns {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      font-family: 'Cinzel', serif;
+      font-size: 0.44rem;
+      letter-spacing: 0.12em;
+      padding: 0.28rem 0.65rem;
+      background: rgba(14,7,30,0.6);
+      border: 1px solid var(--border);
+      color: var(--chrome);
+      cursor: pointer;
+      transition: all 0.18s;
+      border-radius: 2px;
+    }
+    .filter-btn:hover { color: var(--white); border-color: var(--purple-rich); }
+    .filter-btn.active { color: var(--white); background: rgba(112,64,176,0.22); border-color: var(--purple-rich); }
+    .filter-btn.active-open { color: #7dba7d; background: rgba(90,154,90,0.12); border-color: rgba(90,154,90,0.4); }
+    .filter-btn.active-citizen { color: #b080e8; background: rgba(112,64,176,0.15); border-color: rgba(112,64,176,0.45); }
+    .filter-btn.active-cold { color: var(--cold); background: rgba(74,122,181,0.1); border-color: rgba(74,122,181,0.35); }
+    .filter-btn.active-temp { color: var(--temp); background: rgba(90,154,90,0.1); border-color: rgba(90,154,90,0.35); }
+    .filter-btn.active-trop { color: var(--trop); background: rgba(184,138,48,0.1); border-color: rgba(184,138,48,0.35); }
+
+    /* Hidden farm entries */
+    .farm-entry.hidden { display: none; }
+    .farm-nav-link.hidden { display: none; }
+
+    /* ── FOOTER ── */
+    footer { background:rgba(8,4,20,0.98); border-top:1px solid var(--border); padding:1.2rem 2.5rem; text-align:center; }
+    .footer-copy { font-family:'Cinzel',serif; font-size:0.47rem; letter-spacing:0.3em; color:rgba(168,164,184,0.32); }
+
+    /* ── DRAWER ── */
+    .drawer { position:fixed; top:0; right:-100%; width:230px; height:100%; background:rgba(13,5,32,0.97); backdrop-filter:blur(24px); z-index:300; padding:4.5rem 1.75rem 2rem; border-left:1px solid var(--border); transition:right 0.3s ease; }
+    .drawer.open { right:0; }
+    .drawer ul { list-style:none; }
+    .drawer li { border-bottom:1px solid var(--border); }
+    .drawer a { display:block; padding:0.9rem 0; font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:0.18em; color:var(--gray-light); text-decoration:none; transition:color 0.2s; }
+    .drawer a:hover { color:var(--white); }
+    .drawer-close { position:absolute; top:1.1rem; right:1.1rem; background:none; border:none; color:var(--gray-light); font-size:1.1rem; cursor:pointer; padding:4px; }
+    .drawer-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:250; display:none; }
+    .drawer-overlay.on { display:block; }
+
+    @media (max-width:900px) {
+      .header-nav,.discord-pill { display:none; }
+      .nav-toggle { display:flex; }
+      .page-layout { grid-template-columns:1fr; }
+      .farm-sidebar { position:static; border-right:none; border-bottom:1px solid var(--border); padding:1.5rem 1.25rem; }
+      .farm-content { padding:2rem 1.25rem 4rem; }
+      .banner-content { padding:0 1.25rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="flag-stripe"><span class="s1"></span><span class="s2"></span><span class="s3"></span></div>
+    <a href="index.html" class="site-title">BLOOM</a>
+    <ul class="header-nav">
+      <li><a href="join.html">Residency</a></li>
+      <li class="nav-has-dropdown" id="dd-about">
+        <button>About Bloom <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="join.html">Residency<span class="menu-desc">How to join Bloom</span></a>
+          <a href="guide.html">New Player Guide<span class="menu-desc">Getting started in Bloom</span></a>
+          <a href="government.html">Government<span class="menu-desc">Congress, laws & constitution</span></a>
+          <a href="rails.html">Rails<span class="menu-desc">Stations, routes & trip planner</span></a>
+          <a href="borders.html">Borders<span class="menu-desc">Interactive territory map</span></a>
+        </div>
+      </li>
+      <li class="nav-has-dropdown" id="dd-community">
+        <button class="active">Community <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="guide.html">New Player Guide<span class="menu-desc">Getting started in Bloom</span></a>
+          <a href="craigslist.html">☮ Craigslist<span class="menu-desc">Jobs & property listings</span></a>
+          <a href="farms.html" class="active">Farms<span class="menu-desc">Public farms & XP production</span></a>
+        </div>
+      </li>
+    </ul>
+    <a href="https://discord.gg/aV6VM32EZR" target="_blank" class="discord-pill">
+      <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+      DISCORD
+    </a>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<div class="drawer" id="drawer">
+  <button class="drawer-close" id="drawerClose">&#x2715;</button>
+  <ul>
+    <li><a href="join.html">Residency</a></li>
+    <li><a href="guide.html">New Player Guide</a></li>
+    <li><a href="government.html">Government</a></li>
+    <li><a href="rails.html">Rails</a></li>
+    <li><a href="borders.html">Borders</a></li>
+    <li><a href="craigslist.html">☮ Craigslist</a></li>
+    <li><a href="farms.html">Farms</a></li>
+    <li><a href="https://discord.gg/aV6VM32EZR" target="_blank" style="color:#a0aaee;">Join Discord</a></li>
+  </ul>
+</div>
+
+<!-- BANNER -->
+<div class="banner">
+  <div class="banner-bg"></div>
+  <div class="banner-overlay"></div>
+  <div class="banner-content">
+    <span class="banner-eyebrow">Community Resources</span>
+    <h1 class="banner-title">Public Farms</h1>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="page-layout">
+
+  <!-- SIDEBAR NAV -->
+  <aside class="farm-sidebar">
+    <p class="sidebar-intro">Click a farm to jump to its info section.</p>
+    <div style="display:flex;gap:1rem;padding:0.75rem 1.25rem 1rem;border-bottom:1px solid var(--border);">
+      <span style="display:flex;align-items:center;gap:0.35rem;font-family:'Cinzel',serif;font-size:0.42rem;letter-spacing:0.14em;color:#7dba7d;"><span style="width:6px;height:6px;border-radius:50%;background:#7dba7d;flex-shrink:0;"></span>Resident &amp; Citizen</span>
+      <span style="display:flex;align-items:center;gap:0.35rem;font-family:'Cinzel',serif;font-size:0.42rem;letter-spacing:0.14em;color:#b080e8;"><span style="width:6px;height:6px;border-radius:50%;background:#b080e8;flex-shrink:0;"></span>Citizen Only</span>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">By Access</span>
+      <div class="filter-btns">
+        <button class="filter-btn active" data-filter-access="all">All</button>
+        <button class="filter-btn" data-filter-access="open">Resident &amp; Citizen</button>
+        <button class="filter-btn" data-filter-access="citizen">Citizen Only</button>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">By Biome</span>
+      <div class="filter-btns">
+        <button class="filter-btn active" data-filter-biome="all">All</button>
+        <button class="filter-btn" data-filter-biome="cold">Cold</button>
+        <button class="filter-btn" data-filter-biome="temp">Temperate</button>
+        <button class="filter-btn" data-filter-biome="trop">Tropical</button>
+      </div>
+    </div>
+
+        <div class="biome-group">
+      <div class="biome-group-header">
+        <div class="biome-pip pip-cold"></div>
+        <span class="label-cold">Cold</span>
+      </div>
+      <a href="#pumpkin1" class="farm-nav-link" data-biome="cold" data-access="open">Pumpkin 1<span class="nav-pip nav-pip-open"></span></a>
+      <a href="#pumpkin2" class="farm-nav-link" data-biome="cold" data-access="citizen">Pumpkin 2<span class="nav-pip nav-pip-citizen"></span></a>
+      <a href="#spruce" class="farm-nav-link" data-biome="cold" data-access="citizen">Spruce Tree<span class="nav-pip nav-pip-citizen"></span></a>
+      <a href="#potato" class="farm-nav-link" data-biome="cold" data-access="citizen">Potato<span class="nav-pip nav-pip-citizen"></span></a>
+      <a href="#sweetberry1" class="farm-nav-link" data-biome="cold" data-access="open">Sweet Berry 1<span class="nav-pip nav-pip-open"></span></a>
+      <a href="#sweetberry2" class="farm-nav-link" data-biome="cold" data-access="citizen">Sweet Berry 2<span class="nav-pip nav-pip-citizen"></span></a>
+      <a href="#beetroot" class="farm-nav-link" data-biome="cold" data-access="citizen">Beetroot<span class="nav-pip nav-pip-citizen"></span></a>
+      <a href="#carrot" class="farm-nav-link" data-biome="cold" data-access="open">Carrot<span class="nav-pip nav-pip-open"></span></a>
+    </div>
+
+    <div class="biome-group">
+      <div class="biome-group-header">
+        <div class="biome-pip pip-temp"></div>
+        <span class="label-temp">Temperate</span>
+      </div>
+      <a href="#birch" class="farm-nav-link" data-biome="temp" data-access="citizen">Birch Tree<span class="nav-pip nav-pip-citizen"></span></a>
+      <a href="#oak" class="farm-nav-link" data-biome="temp" data-access="open">Oak Tree<span class="nav-pip nav-pip-open"></span></a>
+      <a href="#darkoak" class="farm-nav-link" data-biome="temp" data-access="open">Dark Oak Tree<span class="nav-pip nav-pip-open"></span></a>
+      <a href="#wheat" class="farm-nav-link" data-biome="temp" data-access="open">Wheat<span class="nav-pip nav-pip-open"></span></a>
+    </div>
+
+    <div class="biome-group">
+      <div class="biome-group-header">
+        <div class="biome-pip pip-trop"></div>
+        <span class="label-trop">Tropical</span>
+      </div>
+      <a href="#jungle" class="farm-nav-link" data-biome="trop" data-access="citizen">Jungle Tree<span class="nav-pip nav-pip-citizen"></span></a>
+      <a href="#sugarcane1" class="farm-nav-link" data-biome="trop" data-access="open">Sugar Cane 1<span class="nav-pip nav-pip-open"></span></a>
+      <a href="#sugarcane2" class="farm-nav-link" data-biome="trop" data-access="citizen">Sugar Cane 2<span class="nav-pip nav-pip-citizen"></span></a>
+      <a href="#bamboo1" class="farm-nav-link" data-biome="trop" data-access="open">Bamboo 1<span class="nav-pip nav-pip-open"></span></a>
+      <a href="#bamboo2" class="farm-nav-link" data-biome="trop" data-access="citizen">Bamboo 2<span class="nav-pip nav-pip-citizen"></span></a>
+    </div>
+  </aside>
+
+  <!-- FARM ENTRIES -->
+  <div class="farm-content">
+
+    
+    <!-- COLD -->
+    <div id="pumpkin1" class="farm-entry" data-biome="cold" data-access="open">
+      <span class="farm-entry-eyebrow eyebrow-cold">Cold Biome</span>
+      <h2 class="farm-entry-title">Pumpkin 1</h2>
+      <div class="farm-entry-rule rule-cold"></div>
+      <span class="access-badge badge-open"><span class="badge-dot"></span>Resident &amp; Citizen</span>
+      <p class="farm-entry-body">Add description, location, access instructions, and any relevant details here.</p>
+      <div class="farm-media-placeholder">Images &amp; video coming soon</div>
+    </div>
+
+    <div id="pumpkin2" class="farm-entry" data-biome="cold" data-access="citizen">
+      <span class="farm-entry-eyebrow eyebrow-cold">Cold Biome</span>
+      <h2 class="farm-entry-title">Pumpkin 2</h2>
+      <div class="farm-entry-rule rule-cold"></div>
+      <span class="access-badge badge-citizen"><span class="badge-dot"></span>Citizen Only</span>
+      <p class="farm-entry-body">Add description, location, access instructions, and any relevant details here.</p>
+      <div class="farm-media-placeholder">Images &amp; video coming soon</div>
+    </div>
+
+    <div id="spruce" class="farm-entry" data-biome="cold" data-access="citizen">
+      <span class="farm-entry-eyebrow eyebrow-cold">Cold Biome</span>
+      <h2 class="farm-entry-title">Spruce Tree</h2>
+      <div class="farm-entry-rule rule-cold"></div>
+      <span class="access-badge badge-citizen"><span class="badge-dot"></span>Citizen Only</span>
+      <p class="farm-entry-body">Add description, location, access instructions, and any relevant details here.</p>
+      <div class="farm-media-placeholder">Images &amp; video coming soon</div>
+    </div>
+
+    <div id="potato" class="farm-entry" data-biome="cold" data-access="citizen">
+      <span class="farm-entry-eyebrow eyebrow-cold">Cold Biome</span>
+      <h2 class="farm-entry-title">Potato</h2>
+      <div class="farm-entry-rule rule-cold"></div>
+      <span class="access-badge badge-citizen"><span class="badge-dot"></span>Citizen Only</span>
+      <p class="farm-entry-body">Add description, location, access instructions, and any relevant details here.</p>
+      <div class="farm-media-placeholder">Images &amp; video coming soon</div>
+    </div>
+
+    <div id="sweetberry1" class="farm-entry" data-biome="cold" data-access="open">
+      <span class="farm-entry-eyebrow eyebrow-cold">Cold Biome</span>
+      <h2 class="farm-entry-title">Sweet Berry 1</h2>
+      <div class="farm-entry-rule rule-cold"></div>
+      <span class="access-badge badge-open"><span class="badge-dot"></span>Resident &amp; Citizen</span>
+      <p class="farm-entry-body">Add description, location, access instructions, and any relevant details here.</p>
+      <div class="farm-media-placeholder">Images &amp; video coming soon</div>
+    </div>
+
+    <div id="sweetberry2" class="farm-entry" data-biome="cold" data-access="citizen">
+      <span class="farm-entry-eyebrow eyebrow-cold">Cold Biome</span>
+      <h2 class="farm-entry-title">Sweet Berry 2</h2>
+      <div class="farm-entry-rule rule-cold"></div>
+      <span class="access-badge badge-citizen"><span class="badge-dot"></span>Citizen Only</span>
+      <p class="farm-entry-body">Add description, location, access instructions, and any relevant details here.</p>
+      <div class="farm-media-placeholder">Images &amp; video coming soon</div>
+    </div>
+
+    <div id="beetroot" class="farm-entry" data-biome="cold" data-access="citizen">
+      <span class="farm-entry-eyebrow eyebrow-cold">Cold Biome</span>
+      <h2 class="farm-entry-title">Beetroot</h2>
+      <div class="farm-entry-rule rule-cold"></div>
+      <span class="access-badge badge-citizen"><span class="badge-dot"></span>Citizen Only</span>
+      <p class="farm-entry-body">Add description, location, access instructions, and any relevant details here.</p>
+      <div class="farm-media-placeholder">Images &amp; video coming soon</div>
+    </div>
+
+    <div id="carrot" class="farm-entry" data-biome="cold" data-access="open">
+      <span class="farm-entry-eyebrow eyebrow-cold">Cold Biome</span>
+      <h2 class="farm-entry-title">Carrot</h2>
+      <div class="farm-entry-rule rule-cold"></div>
+      <span class="access-badge badge-open"><span class="badge-dot"></span>Resident &amp; Citizen</span>
+      <p class="farm-entry-body">Add description, location, access instructions, and any relevant details here.</p>
+      <div class="farm-media-placeholder">Images &amp; video coming soon</div>
+    </div>
+
+    <!-- TEMPERATE -->
+    <div id="birch" class="farm-entry" data-biome="temp" data-access="citizen">
+      <span class="farm-entry-eyebrow eyebrow-temp">Temperate Biome</span>
+      <h2 class="farm-entry-title">Birch Tree</h2>
+      <div class="farm-entry-rule rule-temp"></div>
+      <span class="access-badge badge-citizen"><span class="badge-dot"></span>Citizen Only</span>
+      <p class="farm-entry-body">Add description, location, access instructions, and any relevant details here.</p>
+      <div class="farm-media-placeholder">Images &amp; video coming soon</div>
+    </div>
+
+    <div id="oak" class="farm-entry" data-biome="temp" data-access="open">
+      <span class="farm-entry-eyebrow eyebrow-temp">Temperate Biome</span>
+      <h2 class="farm-entry-title">Oak Tree</h2>
+      <div class="farm-entry-rule rule-temp"></div>
+      <span class="access-badge badge-open"><span class="badge-dot"></span>Resident &amp; Citizen</span>
+      <p class="farm-entry-body">Add description, location, access instructions, and any relevant details here.</p>
+      <div class="farm-media-placeholder">Images &amp; video coming soon</div>
+    </div>
+
+    <div id="darkoak" class="farm-entry" data-biome="temp" data-access="open">
+      <span class="farm-entry-eyebrow eyebrow-temp">Temperate Biome</span>
+      <h2 class="farm-entry-title">Dark Oak Tree</h2>
+      <div class="farm-entry-rule rule-temp"></div>
+      <span class="access-badge badge-open"><span class="badge-dot"></span>Resident &amp; Citizen</span>
+      <p class="farm-entry-body">Add description, location, access instructions, and any relevant details here.</p>
+      <div class="farm-media-placeholder">Images &amp; video coming soon</div>
+    </div>
+
+    <div id="wheat" class="farm-entry" data-biome="temp" data-access="open">
+      <span class="farm-entry-eyebrow eyebrow-temp">Temperate Biome</span>
+      <h2 class="farm-entry-title">Wheat</h2>
+      <div class="farm-entry-rule rule-temp"></div>
+      <span class="access-badge badge-open"><span class="badge-dot"></span>Resident &amp; Citizen</span>
+      <p class="farm-entry-body">Add description, location, access instructions, and any relevant details here.</p>
+      <div class="farm-media-placeholder">Images &amp; video coming soon</div>
+    </div>
+
+    <!-- TROPICAL -->
+    <div id="jungle" class="farm-entry" data-biome="trop" data-access="citizen">
+      <span class="farm-entry-eyebrow eyebrow-trop">Tropical Biome</span>
+      <h2 class="farm-entry-title">Jungle Tree</h2>
+      <div class="farm-entry-rule rule-trop"></div>
+      <span class="access-badge badge-citizen"><span class="badge-dot"></span>Citizen Only</span>
+      <p class="farm-entry-body">Add description, location, access instructions, and any relevant details here.</p>
+      <div class="farm-media-placeholder">Images &amp; video coming soon</div>
+    </div>
+
+    <div id="sugarcane1" class="farm-entry" data-biome="trop" data-access="open">
+      <span class="farm-entry-eyebrow eyebrow-trop">Tropical Biome</span>
+      <h2 class="farm-entry-title">Sugar Cane 1</h2>
+      <div class="farm-entry-rule rule-trop"></div>
+      <span class="access-badge badge-open"><span class="badge-dot"></span>Resident &amp; Citizen</span>
+      <p class="farm-entry-body">Add description, location, access instructions, and any relevant details here.</p>
+      <div class="farm-media-placeholder">Images &amp; video coming soon</div>
+    </div>
+
+    <div id="sugarcane2" class="farm-entry" data-biome="trop" data-access="citizen">
+      <span class="farm-entry-eyebrow eyebrow-trop">Tropical Biome</span>
+      <h2 class="farm-entry-title">Sugar Cane 2</h2>
+      <div class="farm-entry-rule rule-trop"></div>
+      <span class="access-badge badge-citizen"><span class="badge-dot"></span>Citizen Only</span>
+      <p class="farm-entry-body">Add description, location, access instructions, and any relevant details here.</p>
+      <div class="farm-media-placeholder">Images &amp; video coming soon</div>
+    </div>
+
+    <div id="bamboo1" class="farm-entry" data-biome="trop" data-access="open">
+      <span class="farm-entry-eyebrow eyebrow-trop">Tropical Biome</span>
+      <h2 class="farm-entry-title">Bamboo 1</h2>
+      <div class="farm-entry-rule rule-trop"></div>
+      <span class="access-badge badge-open"><span class="badge-dot"></span>Resident &amp; Citizen</span>
+      <p class="farm-entry-body">Add description, location, access instructions, and any relevant details here.</p>
+      <div class="farm-media-placeholder">Images &amp; video coming soon</div>
+    </div>
+
+    <div id="bamboo2" class="farm-entry" data-biome="trop" data-access="citizen">
+      <span class="farm-entry-eyebrow eyebrow-trop">Tropical Biome</span>
+      <h2 class="farm-entry-title">Bamboo 2</h2>
+      <div class="farm-entry-rule rule-trop"></div>
+      <span class="access-badge badge-citizen"><span class="badge-dot"></span>Citizen Only</span>
+      <p class="farm-entry-body">Add description, location, access instructions, and any relevant details here.</p>
+      <div class="farm-media-placeholder">Images &amp; video coming soon</div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <span class="footer-copy">REPUBLIC OF BLOOM &nbsp;&middot;&nbsp; CIVMC</span>
+</footer>
+
+<script>
+  // Nav
+  const toggle = document.getElementById('navToggle');
+  const drawer = document.getElementById('drawer');
+  const overlay = document.getElementById('drawerOverlay');
+  const closeBtn = document.getElementById('drawerClose');
+  const openD = () => { drawer.classList.add('open'); overlay.classList.add('on'); document.body.style.overflow='hidden'; };
+  const closeD = () => { drawer.classList.remove('open'); overlay.classList.remove('on'); document.body.style.overflow=''; };
+  toggle.addEventListener('click', openD);
+  overlay.addEventListener('click', closeD);
+  closeBtn.addEventListener('click', closeD);
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeD));
+
+  document.querySelectorAll('.nav-has-dropdown').forEach(li => {
+    li.querySelector('button').addEventListener('click', e => {
+      e.stopPropagation();
+      const wasOpen = li.classList.contains('open');
+      document.querySelectorAll('.nav-has-dropdown').forEach(x => x.classList.remove('open'));
+      if (!wasOpen) li.classList.add('open');
+    });
+  });
+  document.addEventListener('click', () => document.querySelectorAll('.nav-has-dropdown').forEach(x => x.classList.remove('open')));
+
+
+  // Filter logic
+  let activeAccess = 'all';
+  let activeBiome = 'all';
+
+  function applyFilters() {
+    document.querySelectorAll('.farm-entry').forEach(el => {
+      const a = el.dataset.access;
+      const b = el.dataset.biome;
+      const show = (activeAccess === 'all' || a === activeAccess) &&
+                   (activeBiome  === 'all' || b === activeBiome);
+      el.classList.toggle('hidden', !show);
+    });
+    document.querySelectorAll('.farm-nav-link').forEach(el => {
+      const a = el.dataset.access;
+      const b = el.dataset.biome;
+      const show = (activeAccess === 'all' || a === activeAccess) &&
+                   (activeBiome  === 'all' || b === activeBiome);
+      el.classList.toggle('hidden', !show);
+    });
+    // Hide biome group headers if all their links are hidden
+    document.querySelectorAll('.biome-group').forEach(group => {
+      const links = group.querySelectorAll('.farm-nav-link');
+      const anyVisible = [...links].some(l => !l.classList.contains('hidden'));
+      group.style.display = anyVisible ? '' : 'none';
+    });
+  }
+
+  document.querySelectorAll('[data-filter-access]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-filter-access]').forEach(b => {
+        b.classList.remove('active','active-open','active-citizen');
+      });
+      activeAccess = btn.dataset.filterAccess;
+      if (activeAccess === 'all') btn.classList.add('active');
+      else if (activeAccess === 'open') btn.classList.add('active-open');
+      else btn.classList.add('active-citizen');
+      applyFilters();
+    });
+  });
+
+  document.querySelectorAll('[data-filter-biome]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-filter-biome]').forEach(b => {
+        b.classList.remove('active','active-cold','active-temp','active-trop');
+      });
+      activeBiome = btn.dataset.filterBiome;
+      if (activeBiome === 'all') btn.classList.add('active');
+      else btn.classList.add('active-' + activeBiome);
+      applyFilters();
+    });
+  });
+
+  // Active sidebar link on scroll
+  const entries = document.querySelectorAll('.farm-entry');
+  const navLinks = document.querySelectorAll('.farm-nav-link');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active-link'));
+        const active = document.querySelector(`.farm-nav-link[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active-link');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  entries.forEach(e => observer.observe(e));
+</script>
+</body>
+</html>
