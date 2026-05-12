@@ -130,24 +130,26 @@
     .header-nav > li.open .nav-dropdown-menu { display: flex; }
     .nav-dropdown-menu a {
       display: block;
-      padding: 0.85rem 1.25rem;
+      padding: 0.75rem 1.25rem;
       font-family: 'Cinzel', serif;
-      font-size: 0.56rem;
-      letter-spacing: 0.14em;
-      color: var(--chrome-light);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      color: var(--white);
       text-decoration: none;
       border-bottom: 1px solid var(--border);
       transition: color 0.2s, background 0.2s;
     }
     .nav-dropdown-menu a:last-child { border-bottom: none; }
-    .nav-dropdown-menu a:hover { color: var(--white); background: rgba(112, 64, 176, 0.12); }
+    .nav-dropdown-menu a:hover { color: var(--white); background: rgba(112, 64, 176, 0.15); }
     .nav-dropdown-menu .menu-desc {
-      font-family: 'EB Garamond', serif;
-      font-size: 0.82rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 300;
       color: var(--gray-light);
-      font-style: italic;
+      font-style: normal;
       display: block;
-      margin-top: 0.15rem;
+      margin-top: 0.2rem;
+      letter-spacing: 0.02em;
     }
 
     .discord-pill {
@@ -610,29 +612,20 @@
   close.addEventListener('click', closeDrawer);
   drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
 
-  const resourcesDropdown = document.getElementById('resourcesDropdown');
-  const resourcesBtn = document.getElementById('resourcesBtn');
-  resourcesBtn.addEventListener('click', (e) => { e.stopPropagation(); resourcesDropdown.classList.toggle('open'); });
-  document.addEventListener('click', () => { resourcesDropdown.classList.remove('open'); });
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  /* Dropdown nav */
   document.querySelectorAll('.nav-has-dropdown').forEach(li => {
-    const btn = li.querySelector('button');
-    btn.addEventListener('click', e => {
+    li.querySelector('button').addEventListener('click', e => {
       e.stopPropagation();
       const wasOpen = li.classList.contains('open');
       document.querySelectorAll('.nav-has-dropdown').forEach(x => x.classList.remove('open'));
       if (!wasOpen) li.classList.add('open');
     });
   });
-  document.addEventListener('click', () => {
-    document.querySelectorAll('.nav-has-dropdown').forEach(x => x.classList.remove('open'));
-  });
+  document.addEventListener('click', () => document.querySelectorAll('.nav-has-dropdown').forEach(x => x.classList.remove('open')));
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
