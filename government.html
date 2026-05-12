@@ -434,9 +434,23 @@
         const members = gov[role];
         if (members && members.length > 0) {
           if (role === 'Congress Member') {
-            el.innerHTML = members.map(m => `<div>${m}</div>`).join('');
+            el.innerHTML = members.map(name => `
+              <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.35rem;">
+                <img src="https://crafatar.com/avatars/${encodeURIComponent(name)}?size=24&overlay" 
+                     alt="${name}" width="24" height="24" 
+                     style="image-rendering:pixelated;border-radius:2px;flex-shrink:0;"
+                     onerror="this.style.display='none'">
+                <span>${name}</span>
+              </div>`).join('');
           } else {
-            el.textContent = members.join(', ');
+            el.innerHTML = members.map(name => `
+              <div style="display:flex;align-items:center;gap:0.6rem;">
+                <img src="https://crafatar.com/avatars/${encodeURIComponent(name)}?size=24&overlay" 
+                     alt="${name}" width="24" height="24" 
+                     style="image-rendering:pixelated;border-radius:2px;flex-shrink:0;"
+                     onerror="this.style.display='none'">
+                <span>${name}</span>
+              </div>`).join('');
           }
         } else {
           el.innerHTML = '<span class="roster-vacant">Vacant</span>';
