@@ -354,9 +354,9 @@
     <div class="gov-section" id="constitution">
       <div class="gov-section-title">Constitution</div>
       <iframe
-        src="https://docs.google.com/document/d/1gmTk6I_L0L1TnGOi48wGtyqUFw2802yBO7BsCYMxwps/preview"
+        id="constitution-iframe"
         class="constitution-embed"
-        allowfullscreen loading="lazy"
+        allowfullscreen
         tabindex="-1"
         title="Constitution of the Republic of Bloom"
       ></iframe>
@@ -374,10 +374,15 @@
   history.scrollRestoration = 'manual';
   window.scrollTo(0, 0);
   window.addEventListener('load', () => window.scrollTo(0, 0));
-  // Also block iframe from stealing focus/scroll
-  document.querySelectorAll('iframe').forEach(f => {
-    f.addEventListener('load', () => window.scrollTo(window.scrollX, window.scrollY));
-  });
+
+  // Load iframe after delay so it can't steal scroll on load
+  setTimeout(() => {
+    const iframe = document.getElementById('constitution-iframe');
+    if (iframe) {
+      iframe.src = 'https://docs.google.com/document/d/1gmTk6I_L0L1TnGOi48wGtyqUFw2802yBO7BsCYMxwps/preview';
+      iframe.addEventListener('load', () => window.scrollTo(window.scrollX, window.scrollY));
+    }
+  }, 1500);
 
   const toggle = document.getElementById('navToggle');
   const drawer = document.getElementById('drawer');
