@@ -39,7 +39,7 @@
     .header-nav > li > a:hover, .header-nav > li > button:hover, .header-nav > li.open > button, .header-nav > li > a.active { color:var(--white); border-bottom-color:var(--purple-rich); background:rgba(112,64,176,0.09); }
     .header-nav > li > button svg { width:7px; height:7px; fill:currentColor; transition:transform 0.2s; }
     .header-nav > li.open > button svg { transform:rotate(180deg); }
-    .nav-dropdown-menu { position:absolute; top:100%; right:0; background:rgba(13,5,32,0.97); backdrop-filter:blur(22px); border:1px solid var(--border); border-top:none; min-width:210px; display:none; z-index:400; flex-direction:column; }
+    .nav-dropdown-menu { position:absolute; top:100%; right:0; background:rgba(13,5,32,0.97); backdrop-filter:blur(22px); border:1px solid var(--border); border-top:none; min-width:200px; display:none; z-index:400; flex-direction:column; }
     .header-nav > li.open .nav-dropdown-menu { display:flex; }
     .nav-dropdown-menu a { display:block; padding:0.75rem 1.25rem; font-family:'Jost',sans-serif; font-size:1.1rem; font-weight:400; letter-spacing:0.04em; color:var(--white); text-decoration:none; border-bottom:1px solid var(--border); transition:color 0.2s,background 0.2s; }
     .nav-dropdown-menu a:last-child { border-bottom:none; }
@@ -53,7 +53,7 @@
 
     /* ── BANNER ── */
     .banner { margin-top:68px; height:200px; position:relative; overflow:hidden; border-bottom:1px solid var(--border); }
-    .banner-bg { position:absolute; inset:0; background:url('/Bloom/assets/images/farm-bg.png') center/cover no-repeat; filter:blur(3px) brightness(0.35); transform:scale(1.05); }
+    .banner-bg { position:absolute; inset:0; background:url('/assets/images/farm-bg.png') center/cover no-repeat; filter:blur(3px) brightness(0.35); transform:scale(1.05); }
     .banner-overlay { position:absolute; inset:0; background:linear-gradient(to bottom, rgba(13,5,32,0.2) 0%, rgba(13,5,32,0.65) 100%); }
     .banner-content { position:relative; z-index:1; height:100%; display:flex; flex-direction:column; justify-content:flex-end; padding:0 3rem 2rem; max-width:1200px; margin:0 auto; }
     .banner-eyebrow { font-family:'Cinzel',serif; font-size:0.48rem; letter-spacing:0.4em; color:var(--purple-rich); display:block; margin-bottom:0.5rem; }
@@ -302,13 +302,13 @@
     <a href="index.html" class="site-title">BLOOM</a>
     <ul class="header-nav">
       <li><a href="join.html">Residency</a></li>
-      <li class="nav-has-dropdown" id="dd-about">
+            <li class="nav-has-dropdown" id="dd-about">
         <button>About Bloom <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg></button>
         <div class="nav-dropdown-menu">
           <a href="join.html">Residency<span class="menu-desc">How to join Bloom</span></a>
           <a href="guide.html">New Player Guide<span class="menu-desc">Getting started in Bloom</span></a>
-          <a href="government.html">Government<span class="menu-desc">Congress, laws & constitution</span></a>
-          <a href="rails.html">Rails<span class="menu-desc">Stations, routes & trip planner</span></a>
+          <a href="government.html">Government<span class="menu-desc">Congress, laws &amp; constitution</span></a>
+          <a href="rails.html">Rails<span class="menu-desc">Stations, routes &amp; trip planner</span></a>
           <a href="borders.html">Borders<span class="menu-desc">Interactive territory map</span></a>
         </div>
       </li>
@@ -316,8 +316,8 @@
         <button class="active">Community <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg></button>
         <div class="nav-dropdown-menu">
           <a href="guide.html">New Player Guide<span class="menu-desc">Getting started in Bloom</span></a>
-          <a href="craigslist.html">☮ Craigslist<span class="menu-desc">Jobs & property listings</span></a>
-          <a href="farms.html" class="active">Farms<span class="menu-desc">Public farms & XP production</span></a>
+          <a href="craigslist.html">☮ Craigslist<span class="menu-desc">Jobs &amp; property listings</span></a>
+          <a href="farms.html" class="active">Farms<span class="menu-desc">Public farms &amp; XP production</span></a>
         </div>
       </li>
     </ul>
