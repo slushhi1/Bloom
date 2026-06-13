@@ -413,7 +413,16 @@
       const res = await fetch(`https://api.github.com/gists/${GIST_ID}`);
       const gist = await res.json();
       const data = JSON.parse(gist.files['bloom-data.json'].content);
-      const bills = (data.messages || []).filter(m => m.channel === 'passed-bills' && m.type === 'bill');
+      const bills = (data.messages || [])
+        .filter(m => m.channel === 'passed-bills' && m.type === 'bill')
+        .sort((a, b) => {
+          const parseDate = d => {
+            if (!d) return 0;
+            const parsed = new Date(d);
+            return isNaN(parsed) ? 0 : parsed.getTime();
+          };
+          return parseDate(b.date_passed) - parseDate(a.date_passed);
+        });
       if (bills.length === 0) {
         feed.innerHTML = `<div style="background:rgba(14,7,30,0.82);padding:2rem;grid-column:span 2;text-align:center;"><p style="font-family:'EB Garamond',serif;font-size:0.95rem;color:var(--gray-light);font-style:italic;">No bills have been passed yet.</p></div>`;
         return;
