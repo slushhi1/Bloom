@@ -283,13 +283,13 @@
   <aside class="sidebar">
     <span class="sidebar-title">Contents</span>
     <ul class="sidebar-nav">
-      <li><a href="#branches">Three Branches</a></li>
-      <li><a href="#branches" class="sub">The Congress</a></li>
-      <li><a href="#branches" class="sub">The Speaker</a></li>
-      <li><a href="#branches" class="sub">The President</a></li>
-      <li><a href="#cabinet">Cabinet Secretaries</a></li>
-      <li><a href="#laws">Recently Passed Laws</a></li>
-      <li><a href="#constitution">Constitution</a></li>
+      <li><a href="#" data-target="branches">Three Branches</a></li>
+      <li><a href="#" data-target="branches" class="sub">The Congress</a></li>
+      <li><a href="#" data-target="branches" class="sub">The Speaker</a></li>
+      <li><a href="#" data-target="branches" class="sub">The President</a></li>
+      <li><a href="#" data-target="cabinet">Cabinet Secretaries</a></li>
+      <li><a href="#" data-target="laws">Recently Passed Laws</a></li>
+      <li><a href="#" data-target="constitution">Constitution</a></li>
     </ul>
   </aside>
 
@@ -370,17 +370,34 @@
 </footer>
 
 <script>
-  // Prevent auto-scroll to hash on load
-  history.scrollRestoration = 'manual';
-  window.scrollTo(0, 0);
-  window.addEventListener('load', () => window.scrollTo(0, 0));
+  // Sidebar smooth scroll without changing URL hash
+  document.querySelectorAll('.sidebar-nav a[data-target]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.getElementById(link.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
 
-  // Load iframe after delay so it can't steal scroll on load
+  // Lock scroll to top on load — prevent iframe from stealing focus
+  window.scrollTo(0, 0);
+  history.scrollRestoration = 'manual';
+
+  let scrollLocked = true;
+  const lockScroll = () => { if (scrollLocked) window.scrollTo(0, 0); };
+  window.addEventListener('scroll', lockScroll);
+
+  // After 2 seconds unlock normal scrolling
+  setTimeout(() => {
+    scrollLocked = false;
+    window.removeEventListener('scroll', lockScroll);
+  }, 2000);
+
+  // Load iframe after scroll lock is established
   setTimeout(() => {
     const iframe = document.getElementById('constitution-iframe');
     if (iframe) {
       iframe.src = 'https://docs.google.com/document/d/1gmTk6I_L0L1TnGOi48wGtyqUFw2802yBO7BsCYMxwps/preview';
-      iframe.addEventListener('load', () => window.scrollTo(window.scrollX, window.scrollY));
     }
   }, 1500);
 
