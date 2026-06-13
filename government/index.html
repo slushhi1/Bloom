@@ -418,7 +418,8 @@
         .sort((a, b) => {
           const parseDate = d => {
             if (!d) return 0;
-            const parsed = new Date(d);
+            const cleaned = d.replace(/(\d+)(st|nd|rd|th)/i, '$1');
+            const parsed = new Date(cleaned);
             return isNaN(parsed) ? 0 : parsed.getTime();
           };
           return parseDate(b.date_passed) - parseDate(a.date_passed);
